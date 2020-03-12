@@ -25,12 +25,9 @@ export default function Main() {
 
   const [theme, setTheme] = useState('light');
 
-  // The function that toggles between themes
   const toggleTheme = () => {
-    // if the theme is not light, then set it to dark
     if (theme === 'light') {
       setTheme('dark');
-    // otherwise, it should be light
     } else {
       setTheme('light');
     }
@@ -38,16 +35,51 @@ export default function Main() {
 
   const lightTheme = createMuiTheme({
     palette: {
-      type: "light"
+      type: "light",
+      primary: {
+        main: '#133a70',
+        textColor: '#eceff1',
+        fontWeight: "500"
+      },
+      secondary: {
+        main: '#fff',
+        textColor: '#616161',
+        boxShadow: "0 2px 4px 0 #eeeeee"
+      },
+      textSecondary: {
+        main: '#000'
+      },
+      toggle: {
+        border: "1px solid #133a70",
+        bgColor: "#133a70",
+        color: "#eceff1"
+      }
     },
-    bgColor: '#fff'
+    bgColor: '#f2f6fc'
   });
   
   const darkTheme = createMuiTheme({
     palette: {
-      type: "dark"
+      type: "dark",
+      primary: {
+        main: '#424242'
+      },
+      secondary: {
+        main: '#424242',
+        textColor: '#fff',
+        boxShadow: "0 0 0 0"
+      },
+      textSecondary: {
+        main: '#000'
+      },
+      toggle: {
+        border: "1px solid #424242",
+        bgColor: "#424242",
+        color: "#212121"
+      }
+      
     },
-    bgColor: '#000'
+    bgColor: '#212121'
   });
 
 
@@ -60,6 +92,7 @@ export default function Main() {
           <Grid container spacing={1}>
 
             <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+              <PostItem/>
               <PostItem/>
             </Grid>
 

@@ -63,7 +63,6 @@ export default function DrawerMenu() {
       <IconButton
         edge="start"
         size="small"
-        color="inherit"
         aria-label="open drawer"
         onClick={toggleDrawer('right', true)}
       >
