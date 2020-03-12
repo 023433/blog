@@ -86,7 +86,7 @@ export default function Main() {
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <div style={{height: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
-        <Header/>
+        <Header toggleTheme={toggleTheme}/>
         <Container maxWidth="lg" className={classes.container}>
           
           <Grid container spacing={1}>

@@ -17,8 +17,8 @@ import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 
-export default function Header() {
-
+export default function Header(toggleTheme) {
+console.log(toggleTheme);
   const useStyles = makeStyles(theme => ({
     appbar: {
       height: "65px",
@@ -92,13 +92,14 @@ export default function Header() {
                       Tag
                   </Button>
                   <ToggleButton
+                    value=""
                     className={classes.toggle}
                     onChange={() => {
                       setSelected(!selected);
                     }}
                   >
                     {selected? <Brightness2RoundedIcon /> : <WbSunnyRoundedIcon />}
-                    {selected? "DARK" : "LIGHT"}
+                    {selected? "어둡게" : "환하게"}
                     
                   </ToggleButton>
                 </Hidden>
