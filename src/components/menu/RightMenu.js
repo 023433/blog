@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 import LogoMedium from '../svg/logo/medium'
@@ -43,12 +42,10 @@ export default function RightMenu() {
     <Grid item className={classes.grid}>
       <Card elevation={0} className={classes.card}>
         <CardActionArea>
-          <LogoMedium logoFirst={classes.logoFirst} logoSecond={classes.logoSecond} logoLine={classes.logoLine}/>
-          {/* <CardMedia
-            className={classes.media}
-            image={LogoMedium}
-            title="Paella dish"
-          /> */}
+          <LogoMedium 
+            logoFirst={classes.logoFirst} 
+            logoSecond={classes.logoSecond} 
+            logoLine={classes.logoLine}/>
           <CardContent>
             <Typography component="h5" variant="h5" className={classes.typography}>
               Live From Space
