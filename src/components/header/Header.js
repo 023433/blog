@@ -15,10 +15,9 @@ import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 
 import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
-import ToggleButton from '@material-ui/lab/ToggleButton';
 
-export default function Header(toggleTheme) {
-console.log(toggleTheme);
+export default function Header(props) {
+
   const useStyles = makeStyles(theme => ({
     appbar: {
       height: "65px",
@@ -45,6 +44,11 @@ console.log(toggleTheme);
       border: theme.palette.toggle.border,
       color: theme.palette.toggle.color      
     },
+    button: {
+      backgroundColor: theme.palette.button.bgColor,
+      border: theme.palette.button.border,
+      color: theme.palette.button.color      
+    }
 
   }));
 
@@ -87,21 +91,23 @@ console.log(toggleTheme);
                 <Hidden smDown>
                   
                   <Button 
+                    className={classes.button}
                     startIcon={<LocalOfferOutlinedIcon/>}>
                       
                       Tag
                   </Button>
-                  <ToggleButton
+                  <Button
                     value=""
                     className={classes.toggle}
-                    onChange={() => {
+                    onClick={() => {
+                      props.toggleTheme()
                       setSelected(!selected);
                     }}
+                    startIcon={selected? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
                   >
-                    {selected? <Brightness2RoundedIcon /> : <WbSunnyRoundedIcon />}
-                    {selected? "어둡게" : "환하게"}
+                    {selected? "DAY" : "NIGHT" }
                     
-                  </ToggleButton>
+                  </Button>
                 </Hidden>
               </Grid>
             </Grid>

@@ -17,9 +17,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 export default function DrawerMenu() {
 
   const useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-    },
+    button: {
+      backgroundColor: theme.palette.button.bgColor,
+      border: theme.palette.button.border,
+      color: theme.palette.button.color      
+    }
   }));
 
   const classes = useStyles();
@@ -66,7 +68,7 @@ export default function DrawerMenu() {
         aria-label="open drawer"
         onClick={toggleDrawer('right', true)}
       >
-        <MenuIcon />
+        <MenuIcon className={classes.button}/>
       </IconButton>
       <Drawer 
         anchor="right" 
