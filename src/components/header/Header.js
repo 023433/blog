@@ -65,7 +65,7 @@ export default function Header(props) {
 
   const classes = useStyles();
 
-  const saveTheme = props.currentTheme;
+  let saveTheme = props.currentTheme;
 
   if (saveTheme === 'undefined') {
     saveTheme = 'light';

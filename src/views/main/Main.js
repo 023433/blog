@@ -8,7 +8,7 @@ import { createMuiTheme } from "@material-ui/core";
 
 export default function Main() {
 
-  const saveTheme = localStorage.getItem("theme")
+  let saveTheme = localStorage.getItem("theme")
 
   if (saveTheme === 'undefined') {
     saveTheme = 'light';
