@@ -76,7 +76,7 @@ export default function Header(props) {
           <Grid container spacing={1}>
 
             <Grid item xs={1}>
-              <div style={{maxWidth:"45px", minHeight:"45px"}}> 
+              <div style={{maxWidth:"45px", minHeight:"45px", minWidth:"45px", maxHeight:"45px"}}> 
                 <LogoSamll 
                   logoFirst={classes.logoFirst} 
                   logoSecond={classes.logoSecond} />
