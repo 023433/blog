@@ -21,7 +21,6 @@ export default function Header(props) {
 
   const toggleTheme = () => {
     props.toggleTheme();
-    setSelected(!selected);
   }
 
   const useStyles = makeStyles(theme => ({
@@ -66,7 +65,13 @@ export default function Header(props) {
 
   const classes = useStyles();
 
-  const [selected, setSelected] = React.useState(false);
+  const saveTheme = props.currentTheme;
+
+  if (saveTheme === 'undefined') {
+    saveTheme = 'light';
+  }
+
+  const [theme, setTheme] = React.useState(saveTheme);
 
   return (
 
@@ -117,11 +122,15 @@ export default function Header(props) {
                   className={classes.toggle}
                   onClick={() => {
                     props.toggleTheme()
-                    setSelected(!selected);
+                    if (theme === 'light') {
+                      setTheme('dark');
+                    } else {
+                      setTheme('light');
+                    }
                   }}
-                  startIcon={selected? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
+                  startIcon={theme==="dark"? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
                 >
-                  {selected? "DAY" : "NIGHT" }
+                  {theme==="dark"? "DAY" : "NIGHT" }
                   
                 </Button>
               </Hidden>

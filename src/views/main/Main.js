@@ -8,13 +8,21 @@ import { createMuiTheme } from "@material-ui/core";
 
 export default function Main() {
 
-  const [theme, setTheme] = useState('light');
+  const saveTheme = localStorage.getItem("theme")
+
+  if (saveTheme === 'undefined') {
+    saveTheme = 'light';
+  }
+
+  const [theme, setTheme] = useState(saveTheme);
 
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       setTheme('light');
+      localStorage.setItem('theme', 'light');
     }
   }
 
@@ -40,6 +48,11 @@ export default function Main() {
         border: "1px solid transparent",
         bgColor: "transparent",
         color: "#E6E6E6"
+      },
+      inputSearch: {
+        border: "1px solid D8D8D8",
+        bgColor: "#fff",
+        color: "#151515"
       },
       logo: {
         first: {
@@ -80,6 +93,11 @@ export default function Main() {
         bgColor: "transparent",
         color: "#D8D8D8"
       },
+      inputSearch: {
+        border: "1px solid transparent",
+        bgColor: "#2E2E2E",
+        color: "#D8D8D8"
+      },
       logo: {
         first: {
           fill: "#2E2E2E"
@@ -98,7 +116,7 @@ export default function Main() {
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
 
       <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
-        <Header toggleTheme={toggleTheme} />
+        <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
         <Content />
       </div>
       
