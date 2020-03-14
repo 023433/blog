@@ -3,6 +3,7 @@ import React from 'react';
 export default function medium(props) {
 	return (
 		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 300 300" >
+		<rect x="126.7" y="190.9" className={props.logoFirst} width="41" height="5"/>
 		<g>
 			<path className={props.logoSecond} d="M149.57,182.65c-6.81,0.86-12.7-1.07-17.9-5.55c-4.43-3.82,0.59-5.2,1.87-7.36c1.95-3.31,3.29-0.78,4.63,0.84
 				c0.42,0.5,0.99,0.88,1.48,1.31c3.35,0.66,6.69,0.51,10.04-0.01c2.7-2.03,3.02-5.09,3.07-8.04c0.17-11.28,0.11-22.57,0.25-33.85
@@ -15,7 +16,6 @@ export default function medium(props) {
 				c9.29,0.2,18.58,0.04,27.87,0.02c2.16,2.8,2.09,5.73,0.52,8.75c-0.5,0.71-1.21,1.3-2.03,1.31c-5.24,0.06-5.84,3.23-5.87,7.6
 				c-0.05,10.78,1.16,21.62-0.9,32.34C156.41,176.95,151.7,181.5,142.75,182.66z"/>
 		</g>
-		<line className={props.logoSecond} stroke="#2F89CC" strokeWidth="5" strokeMiterlimit="10" x1="126.71" y1="193.39" x2="167.71" y2="193.39"/>
 		</svg>
   );
 };

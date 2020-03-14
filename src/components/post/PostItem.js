@@ -11,14 +11,15 @@ export default function PostItem() {
 
   const useStyles = makeStyles(theme => ({
     card: {
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: theme.palette.secondary.main,
+      margin: `${theme.spacing(1)}px auto`
     },
     typography: {
       color: theme.palette.secondary.textColor
     },
     grid: {
-      marginBottom: "10px",
-      boxShadow: theme.palette.secondary.boxShadow
+      marginBottom: `${theme.spacing(1)}px auto`,
+      boxShadow: theme.palette.secondary.boxShadow,
     }
   }));
 

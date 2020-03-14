@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-export default function DrawerMenu() {
+export default function DrawerMenu(props) {
 
   const useStyles = makeStyles(theme => ({
     button: {
@@ -76,6 +76,15 @@ export default function DrawerMenu() {
         onClose={toggleDrawer('right', false)}>
 
         {sideList('right')}
+
+        <IconButton
+          size="small"
+          onClick={() => {
+            props.toggleTheme()
+          }}
+        >
+          <MenuIcon className={classes.button}/>
+        </IconButton>
       </Drawer>
     </React.Fragment>
   );

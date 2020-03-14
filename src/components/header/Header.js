@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import Avatar from '@material-ui/core/Avatar';
 
 import Button from '@material-ui/core/Button';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
@@ -16,7 +15,14 @@ import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
 import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
 
+import LogoSamll from '../svg/logo/small'
+
 export default function Header(props) {
+
+  const toggleTheme = () => {
+    props.toggleTheme();
+    setSelected(!selected);
+  }
 
   const useStyles = makeStyles(theme => ({
     appbar: {
@@ -48,6 +54,12 @@ export default function Header(props) {
       backgroundColor: theme.palette.button.bgColor,
       border: theme.palette.button.border,
       color: theme.palette.button.color      
+    },
+    logoFirst: {
+      fill: theme.palette.logo.first.fill
+    },
+    logoSecond: {
+      fill: theme.palette.logo.second.fill
     }
 
   }));
@@ -57,66 +69,69 @@ export default function Header(props) {
   const [selected, setSelected] = React.useState(false);
 
   return (
-    <div>
-      <AppBar className={classes.appbar} position="fixed" color="primary">
-        <Container className={classes.container} maxWidth="lg">
-          <Toolbar className={classes.toolbar}>
-            <Grid container spacing={1}>
 
-              <Grid item xs={1}>
-                <Avatar src="/static/images/logo/logo_small.svg" />
-              </Grid>
+    <AppBar className={classes.appbar} position="fixed" color="primary">
+      <Container className={classes.container} maxWidth="lg">
+        <Toolbar className={classes.toolbar}>
+          <Grid container spacing={1}>
 
-              <Grid item xs={8} 
-                className={classes.verticalCenter} 
-                container 
-                justify="flex-end">
-
-                <Hidden smDown>
-                  <DropDownMenu/>
-                  <DropDownMenu/>
-                  <DropDownMenu/>
-                </Hidden>
-              </Grid>
-
-              <Grid item xs={3} 
-                className={classes.verticalCenter} 
-                container 
-                justify="flex-end"
-                style={{paddingRight: "15px"}}>
-
-                <Hidden mdUp>
-                  <DrawerMenu/>
-                </Hidden>
-                <Hidden smDown>
-                  
-                  <Button 
-                    className={classes.button}
-                    startIcon={<LocalOfferOutlinedIcon/>}>
-                      
-                      Tag
-                  </Button>
-                  <Button
-                    value=""
-                    className={classes.toggle}
-                    onClick={() => {
-                      props.toggleTheme()
-                      setSelected(!selected);
-                    }}
-                    startIcon={selected? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
-                  >
-                    {selected? "DAY" : "NIGHT" }
-                    
-                  </Button>
-                </Hidden>
-              </Grid>
+            <Grid item xs={1}>
+              <div style={{maxWidth:"45px", minHeight:"45px"}}> 
+                <LogoSamll 
+                  logoFirst={classes.logoFirst} 
+                  logoSecond={classes.logoSecond} />
+              </div>
             </Grid>
 
-          </Toolbar>
-        </Container>
-        
-      </AppBar>
+            <Grid item xs={8} 
+              className={classes.verticalCenter} 
+              container 
+              justify="flex-end">
+
+              <Hidden smDown>
+                <DropDownMenu/>
+                <DropDownMenu/>
+                <DropDownMenu/>
+              </Hidden>
+            </Grid>
+
+            <Grid item xs={3} 
+              className={classes.verticalCenter} 
+              container 
+              justify="flex-end"
+              style={{paddingRight: "15px"}}>
+
+              <Hidden mdUp>
+                <DrawerMenu toggleTheme={toggleTheme} />
+              </Hidden>
+              <Hidden smDown>
+                
+                <Button 
+                  className={classes.button}
+                  startIcon={<LocalOfferOutlinedIcon/>}>
+                    
+                    Tag
+                </Button>
+                <Button
+                  value=""
+                  className={classes.toggle}
+                  onClick={() => {
+                    props.toggleTheme()
+                    setSelected(!selected);
+                  }}
+                  startIcon={selected? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
+                >
+                  {selected? "DAY" : "NIGHT" }
+                  
+                </Button>
+              </Hidden>
+            </Grid>
+          </Grid>
+
+        </Toolbar>
+      </Container>
       
-    </div>
+    </AppBar>
+    
   );
 }

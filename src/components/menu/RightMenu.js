@@ -11,16 +11,16 @@ import LogoMedium from '../svg/logo/medium'
 
 export default function RightMenu() {
 
-  console.log();
   const useStyles = makeStyles(theme => ({
     card: {
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: theme.palette.secondary.main,
+      margin: `${theme.spacing(1)}px auto`
     },
     typography: {
       color: theme.palette.secondary.textColor
     },
     grid: {
-      marginBottom: "10px",
+      marginBottom: `${theme.spacing(1)}px auto`,
       boxShadow: theme.palette.secondary.boxShadow
     },
     media: {
@@ -31,9 +31,6 @@ export default function RightMenu() {
     },
     logoSecond: {
       fill: theme.palette.logo.second.fill
-    },
-    logoLine: {
-
     }
   }));
 
@@ -44,18 +41,29 @@ export default function RightMenu() {
         <CardActionArea>
           <LogoMedium 
             logoFirst={classes.logoFirst} 
-            logoSecond={classes.logoSecond} 
-            logoLine={classes.logoLine}/>
+            logoSecond={classes.logoSecond}/>
           <CardContent>
-            <Typography component="h5" variant="h5" className={classes.typography}>
-              Live From Space
-            </Typography>
-            <Typography variant="subtitle1" className={classes.typography}>
-              Mac Miller
+            <Typography variant="subtitle1" className={classes.typography} align="center">
+              Dev-J
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
+
+      <Card elevation={0} className={classes.card}>
+        <CardActionArea>
+          <LogoMedium 
+            logoFirst={classes.logoFirst} 
+            logoSecond={classes.logoSecond}/>
+          <CardContent>
+            <Typography variant="subtitle1" className={classes.typography} align="center">
+              Dev-J
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+
+      
     </Grid>
   );
 };

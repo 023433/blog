@@ -1,27 +1,12 @@
 import React, { useState } from 'react';
+
 import Header from '../../components/header/Header'
-import PostItem from '../../components/post/PostItem'
-import RightMenu from '../../components/menu/RightMenu'
+import Content from '../../components/content/ContentMain'
 
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import { Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-import Grid from '@material-ui/core/Grid';
-
-const useStyles = makeStyles(theme => ({
-    container: {
-      paddingLeft: 0,
-      paddingRight: 0,
-      paddingTop: "70px"
-    }
-  })
-);
 
 export default function Main() {
-
-  const classes = useStyles();
 
   const [theme, setTheme] = useState('light');
 
@@ -45,9 +30,6 @@ export default function Main() {
         main: '#fff',
         textColor: '#616161',
         boxShadow: "0 2px 4px 0 #eeeeee"
-      },
-      textSecondary: {
-        main: '#000'
       },
       toggle: {
         border: "1px solid transparent",
@@ -88,9 +70,6 @@ export default function Main() {
         textColor: '#A4A4A4',
         boxShadow: "0 0 0 0"
       },
-      textSecondary: {
-        main: '#000'
-      },
       toggle: {
         border: "1px solid transparent",
         bgColor: "transparent",
@@ -107,10 +86,6 @@ export default function Main() {
         },
         second: {
           fill: "#606060"
-        },
-        line: {
-          fill: "none",
-          stroke: "#2F89CC"
         }
       }
       
@@ -121,24 +96,10 @@ export default function Main() {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <div style={{height: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
+
+      <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
         <Header toggleTheme={toggleTheme} />
-        <Container maxWidth="lg" className={classes.container}>
-          
-          <Grid container spacing={1}>
-
-            <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
-              <PostItem/>
-              <PostItem/>
-            </Grid>
-
-            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-              <RightMenu/>
-            </Grid>
-
-          </Grid>    
-
-        </Container>
+        <Content />
       </div>
       
     </ThemeProvider>
