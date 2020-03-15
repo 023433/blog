@@ -17,8 +17,6 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 
-import './Calendar.css';
-
 export default function MenuCalendar() {
   const useStyles = makeStyles(theme => ({
     calendar: {
@@ -27,6 +25,12 @@ export default function MenuCalendar() {
       backgroundColor: theme.palette.secondary.main,
       color: theme.palette.secondary.textColor,
       textDecoration: "none",
+      "& .react-calendar__navigation":{
+        marginBottom: "0px"
+      },
+      "& .react-calendar__month-view__weekdays__weekday abbr":{
+        textDecoration: "none"
+      },
       "& .react-calendar__month-view__weekdays":{
         "& div:first-child": {
           color: theme.palette.calendar.sunday.color
@@ -54,14 +58,34 @@ export default function MenuCalendar() {
     },
     weekday: {
       color: theme.palette.calendar.weekday.color
+    },
+    fill: {
+      backgroundColor: theme.palette.calendar.fill.backgroundColor
     }
   }));
 
   const classes = useStyles();
 
+  let writeDate = [1, 10, 20, 11, 15];
+
   const initDate = (param) => {
-    let date = param.date.getDay();
-   return date === 0 ? classes.sunday : date === 6 ? classes.satday : classes.weekday
+    let weekday = param.date.getDay();
+    let day = param.date.getDate();
+    let res = [];
+
+    if(writeDate.includes(day)){
+      res.push(classes.fill);
+    }
+
+    if(weekday === 0){
+      res.push(classes.sunday);
+    }else if(weekday === 6){
+      res.push(classes.satday);
+    }else{
+      res.push(classes.weekday);
+    }
+
+    return res
   }
 
   return (
@@ -79,6 +103,7 @@ export default function MenuCalendar() {
                 {date.toLocaleDateString(locale)}
               </Typography>
             }
+            showNeighboringMonth={false}
             tileClassName={
               (date) => initDate(date)
             }

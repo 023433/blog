@@ -71,10 +71,14 @@ export default function Main() {
           color: "red"
         },
         satday: {
-          color: "#133a70"
+          color: "#133a70",
+          fontWeight: "bold"
         },
         weekday: {
           color: "#616161"
+        },
+        fill: {
+          backgroundColor: "#D8D8D8"
         }
       }
     },
@@ -127,6 +131,9 @@ export default function Main() {
         },
         weekday: {
           color: "#A4A4A4"
+        },
+        fill: {
+          backgroundColor: "#2E2E2E"
         }
       }
       
