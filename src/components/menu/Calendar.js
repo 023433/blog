@@ -98,9 +98,9 @@ export default function MenuCalendar() {
             prev2Label={<FirstPageIcon className={classes.icon}/>}
             nextLabel={<NavigateNextIcon className={classes.icon}/>}
             next2Label={<LastPageIcon className={classes.icon}/>}
-            navigationLabel={({ date, locale }) => 
+            navigationLabel={({ date }) => 
               <Typography variant="button" className={classes.typography}>
-                {date.toLocaleDateString(locale)}
+                {date.getFullYear() + ". " + (date.getMonth() + 1) + ". "}
               </Typography>
             }
             showNeighboringMonth={false}
