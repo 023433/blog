@@ -44,7 +44,7 @@ export default function PostView() {
     },
     coverMedia: {
       maxHeight: "500px",
-      minHeight: "150px",
+      minHeight: "300px",
     }
 
   }));
