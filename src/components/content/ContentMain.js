@@ -25,6 +25,14 @@ export default function ContentMain() {
         <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
           <PostItem/>
           <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
+          <PostItem/>
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>

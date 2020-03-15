@@ -44,6 +44,12 @@ export default function Main() {
         fontSize: '15px',
         boxShadow: "0 2px 4px 0 #eeeeee"
       },
+      tertiary: {
+        main: '#fff',
+        textColor: '#263238',
+        fontSize: '15px',
+        boxShadow: "0 2px 4px 0 #eeeeee"
+      },
       toggle: {
         border: "1px solid transparent",
         bgColor: "transparent",
@@ -108,6 +114,12 @@ export default function Main() {
       secondary: {
         main: '#424242',
         textColor: '#A4A4A4',
+        fontSize: '14px',
+        boxShadow: "0 0 0 0"
+      },
+      tertiary: {
+        main: '#424242',
+        textColor: '#e0e0e0',
         fontSize: '14px',
         boxShadow: "0 0 0 0"
       },
