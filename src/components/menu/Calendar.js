@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
@@ -9,16 +9,60 @@ import CardContent from './CardContent';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+import Typography from '@material-ui/core/Typography';
+
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import LastPageIcon from '@material-ui/icons/LastPage';
+
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import FirstPageIcon from '@material-ui/icons/FirstPage';
+
+import './Calendar.css';
+
 export default function MenuCalendar() {
   const useStyles = makeStyles(theme => ({
     calendar: {
-      border: "1px solid transparent"
+      width: "100%",
+      border: "1px solid transparent",
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.textColor,
+      textDecoration: "none",
+      "& .react-calendar__month-view__weekdays":{
+        "& div:first-child": {
+          color: theme.palette.calendar.sunday.color
+        },
+        "& div:last-child": {
+          color: theme.palette.calendar.satday.color,
+        }
+      }
+    },
+    icon: {
+      marginRight: theme.spacing(0.5),
+      width: 20,
+      height: 20,
+      color: theme.palette.secondary.textColor
+    },
+    typography: {
+      color: theme.palette.secondary.textColor
+    },
+    sunday: {
+      color: theme.palette.calendar.sunday.color
+    },
+    satday: {
+      color: theme.palette.calendar.satday.color,
+      fontWeight: theme.palette.calendar.satday.fontWeight
+    },
+    weekday: {
+      color: theme.palette.calendar.weekday.color
     }
   }));
 
   const classes = useStyles();
 
-  const [date, onDate] = useState(new Date());
+  const initDate = (param) => {
+    let date = param.date.getDay();
+   return date === 0 ? classes.sunday : date === 6 ? classes.satday : classes.weekday
+  }
 
   return (
     <React.Fragment>
@@ -26,9 +70,21 @@ export default function MenuCalendar() {
       <CardContent content={
         <React.Fragment>
           <Calendar 
+            prevLabel={<NavigateBeforeIcon className={classes.icon}/>}
+            prev2Label={<FirstPageIcon className={classes.icon}/>}
+            nextLabel={<NavigateNextIcon className={classes.icon}/>}
+            next2Label={<LastPageIcon className={classes.icon}/>}
+            navigationLabel={({ date, locale }) => 
+              <Typography variant="button" className={classes.typography}>
+                {date.toLocaleDateString(locale)}
+              </Typography>
+            }
+            tileClassName={
+              (date) => initDate(date)
+            }
             className={classes.calendar}
-            onChange={onDate}
-            value={date}/>
+            calendarType={"US"}
+            />
         </React.Fragment>
       }/>
     </React.Fragment>

@@ -65,6 +65,17 @@ export default function Main() {
           fill: "none",
           stroke: "#2F89CC"          
         }
+      },
+      calendar: {
+        sunday: {
+          color: "red"
+        },
+        satday: {
+          color: "#133a70"
+        },
+        weekday: {
+          color: "#616161"
+        }
       }
     },
     bgColor: '#f2f6fc'
@@ -104,6 +115,18 @@ export default function Main() {
         },
         second: {
           fill: "#606060"
+        }
+      },
+      calendar: {
+        sunday: {
+          color: "red"
+        },
+        satday: {
+          color: "#133a70",
+          fontWeight: "bold"
+        },
+        weekday: {
+          color: "#A4A4A4"
         }
       }
       
