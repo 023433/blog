@@ -43,16 +43,19 @@ export default function Header(props) {
     verticalCenter: {
       display: 'flex',
       alignItems: 'center',
+      overflow: "hidden"
     },
     toggle: {
       backgroundColor: theme.palette.toggle.bgColor,
       border: theme.palette.toggle.border,
-      color: theme.palette.toggle.color      
+      color: theme.palette.toggle.color,
+      textTransform: "none"
     },
     button: {
       backgroundColor: theme.palette.button.bgColor,
       border: theme.palette.button.border,
-      color: theme.palette.button.color      
+      color: theme.palette.button.color,
+      textTransform: "none"
     },
     logoFirst: {
       fill: theme.palette.logo.first.fill
@@ -112,6 +115,7 @@ export default function Header(props) {
               <Hidden smDown>
 
                 <Button 
+                  size="small"
                   className={classes.button}
                   startIcon={<HomeRoundedIcon/>}>
                     
@@ -119,13 +123,14 @@ export default function Header(props) {
                 </Button>
                 
                 <Button 
+                  size="small"
                   className={classes.button}
                   startIcon={<LocalOfferOutlinedIcon/>}>
                     
                     Tag
                 </Button>
                 <Button
-                  value=""
+                  size="small"
                   className={classes.toggle}
                   onClick={() => {
                     props.toggleTheme()
@@ -137,7 +142,7 @@ export default function Header(props) {
                   }}
                   startIcon={theme==="dark"? <WbSunnyRoundedIcon /> : <Brightness2RoundedIcon />}
                 >
-                  {theme==="dark"? "DAY" : "NIGHT" }
+                  {theme==="dark"? "Day" : "Night" }
                   
                 </Button>
               </Hidden>
