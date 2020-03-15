@@ -4,7 +4,7 @@ export default function small(props) {
 	return (
 		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 60 60" >
 
-		<rect x="13.7" y="53.2" className={props.logoSecond} width="27.4" height="3.3"/>
+		<rect x="13.7" y="53.2" className={props.logoFirst} width="27.4" height="3.3"/>
 		<g>
 			<path className={props.logoSecond} d="M29,47.7C24.4,48.3,20.5,47,17,44c-2.9-2.5,0.4-3.5,1.3-4.9c1.3-2.2,2.2-0.5,3.1,0.5c0.3,0.3,0.7,0.6,1,0.9
 				c2.2,0.5,4.5,0.3,6.7,0c1.8-1.3,2-3.4,2.1-5.3c0.1-7.5,0.1-15.1,0.2-22.6c0-1.6-0.5-2.3-2.1-2.1c-0.9,0.1-1.8-0.1-2.7,0

@@ -8,8 +8,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Collapse from '@material-ui/core/Collapse';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-
-
+import Badge from '@material-ui/core/Badge';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 export default function CategoryItem() {
 
   const useStyles = makeStyles(theme => ({
@@ -27,7 +27,10 @@ export default function CategoryItem() {
       padding: "0px"
     },
     listItemText: {
-      color: theme.palette.secondary.textColor
+      color: theme.palette.secondary.textColor,
+      "& span": {
+        fontSize: theme.palette.secondary.fontSize
+      }
     },
     icon: {
       marginRight: theme.spacing(0.5),
@@ -35,6 +38,12 @@ export default function CategoryItem() {
       height: 20,
       color: theme.palette.secondary.textColor
     },
+    badge: {
+      "& span":{
+        backgroundColor: theme.palette.badge.backgroundColor,
+        color: theme.palette.secondary.textColor
+      }
+    }
   }));
 
   const classes = useStyles();
@@ -55,7 +64,10 @@ export default function CategoryItem() {
             : <ArrowDropDownIcon className={classes.icon} onClick={handleClick}/>}
         </ListItemIcon>
 
-        <ListItemText primary="Inbox" className={classes.listItemText}/>
+        <ListItemText primary="메뉴" className={classes.listItemText}/>
+        <ListItemSecondaryAction>
+          <Badge badgeContent={10000} max={999} className={classes.badge} />
+        </ListItemSecondaryAction>
       </ListItem>
 
       <Collapse in={open} timeout="auto" className={classes.nested}>
@@ -64,13 +76,22 @@ export default function CategoryItem() {
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
-            <ListItemText primary="Starred" className={classes.listItemText}/>
+            <ListItemText primary="첫번째" className={classes.listItemText}/>
+            <ListItemSecondaryAction>
+              <Badge badgeContent={4} className={classes.badge} />
+            </ListItemSecondaryAction>
+           
+
           </ListItem>
           <ListItem button className={classes.listItem}>
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
-            <ListItemText primary="Starred" className={classes.listItemText}/>
+            <ListItemText primary="두번째" className={classes.listItemText}/>
+            <ListItemSecondaryAction>
+              <Badge badgeContent={4} className={classes.badge} />
+            </ListItemSecondaryAction>
+
           </ListItem>
         </List>
       </Collapse>

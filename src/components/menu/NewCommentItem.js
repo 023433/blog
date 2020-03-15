@@ -20,7 +20,8 @@ export default function NewCommentItem() {
       padding: "3px 0px 0px 5px"
     },
     listItemText: {
-      color: theme.palette.secondary.textColor
+      color: theme.palette.secondary.textColor,
+      fontSize: theme.palette.secondary.fontSize
     },
     icon: {
       marginRight: theme.spacing(0.5),
@@ -39,7 +40,7 @@ export default function NewCommentItem() {
       </ListItemIcon>
 
       <Typography variant="inherit" noWrap className={classes.listItemText}>
-        very long text that overflowsA very long text that overflows
+        최근 댓글 최근 댓글 최근 댓글 최근 댓글 최근 댓글 최근 댓글
       </Typography>
     </ListItem>
   )

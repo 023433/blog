@@ -27,6 +27,10 @@ export default function Main() {
   }
 
   const lightTheme = createMuiTheme({
+    typography: {
+      useNextVariants: true,
+      fontFamily: 'Noto Sans'
+    },      
     palette: {
       type: "light",
       primary: {
@@ -37,6 +41,7 @@ export default function Main() {
       secondary: {
         main: '#fff',
         textColor: '#616161',
+        fontSize: '15px',
         boxShadow: "0 2px 4px 0 #eeeeee"
       },
       toggle: {
@@ -80,12 +85,19 @@ export default function Main() {
         fill: {
           backgroundColor: "#D8D8D8"
         }
+      },
+      badge: {
+        backgroundColor: "#E6E6E6"
       }
     },
     bgColor: '#f2f6fc'
   });
   
   const darkTheme = createMuiTheme({
+    typography: {
+      useNextVariants: true,
+      fontFamily: 'Noto Sans'
+    },
     palette: {
       type: "dark",
       primary: {
@@ -96,6 +108,7 @@ export default function Main() {
       secondary: {
         main: '#424242',
         textColor: '#A4A4A4',
+        fontSize: '14px',
         boxShadow: "0 0 0 0"
       },
       toggle: {
@@ -135,6 +148,9 @@ export default function Main() {
         fill: {
           backgroundColor: "#2E2E2E"
         }
+      },
+      badge: {
+        backgroundColor: "#2E2E2E"
       }
       
     },

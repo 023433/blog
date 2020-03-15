@@ -11,7 +11,7 @@ import Hidden from '@material-ui/core/Hidden';
 
 import Button from '@material-ui/core/Button';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
-
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
 
@@ -107,9 +107,16 @@ export default function Header(props) {
               style={{paddingRight: "15px"}}>
 
               <Hidden mdUp>
-                <DrawerMenu toggleTheme={toggleTheme} />
+                <DrawerMenu toggleTheme={toggleTheme} currentTheme={saveTheme} />
               </Hidden>
               <Hidden smDown>
+
+                <Button 
+                  className={classes.button}
+                  startIcon={<HomeRoundedIcon/>}>
+                    
+                    Home
+                </Button>
                 
                 <Button 
                   className={classes.button}

@@ -28,6 +28,10 @@ export default function DropDownMenu() {
     button: {
       color: theme.palette.primary.textColor,
       fontWeight: theme.palette.primary.fontWeight
+    },
+    item: {
+      color: theme.palette.secondary.textColor,
+      fontWeight: theme.palette.secondary.fontWeight
     }
   }));
 
@@ -40,17 +44,17 @@ export default function DropDownMenu() {
         onClick={handleClick} 
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}>
           
-        Open Menu
+        메뉴
       </Button>
       
       <Popper open={open} anchorEl={anchorEl} transition disablePortal>
         <Paper>
           <ClickAwayListener onClickAway={handleClose}>
             <MenuList>
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </MenuList >
+              <MenuItem className={classes.item}>첫번째</MenuItem>
+              <MenuItem className={classes.item}>두번째</MenuItem>
+              <MenuItem className={classes.item}>세번째</MenuItem>
+            </MenuList>
           </ClickAwayListener>
         </Paper>
       </Popper>
