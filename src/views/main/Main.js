@@ -151,7 +151,7 @@ export default function Main() {
           color: "red"
         },
         satday: {
-          color: "#133a70",
+          color: "#0288d1",
           fontWeight: "bold"
         },
         weekday: {

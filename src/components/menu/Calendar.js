@@ -95,12 +95,12 @@ export default function MenuCalendar() {
         <React.Fragment>
           <Calendar 
             prevLabel={<NavigateBeforeIcon className={classes.icon}/>}
-            prev2Label={<FirstPageIcon className={classes.icon}/>}
+            prev2Label={null}
             nextLabel={<NavigateNextIcon className={classes.icon}/>}
-            next2Label={<LastPageIcon className={classes.icon}/>}
-            navigationLabel={({ label }) => 
+            next2Label={null}
+            navigationLabel={({ date }) => 
               <Typography variant="button" className={classes.typography}>
-                {label}
+                {date.getFullYear() + ". " + (date.getMonth()+1) + "."}
               </Typography>
             }
             showNeighboringMonth={false}
