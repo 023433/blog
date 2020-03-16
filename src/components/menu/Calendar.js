@@ -12,10 +12,8 @@ import 'react-calendar/dist/Calendar.css';
 import Typography from '@material-ui/core/Typography';
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import LastPageIcon from '@material-ui/icons/LastPage';
 
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
 
 export default function MenuCalendar() {
   const useStyles = makeStyles(theme => ({
