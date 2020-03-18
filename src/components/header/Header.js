@@ -1,6 +1,7 @@
 import React from 'react';
 import DrawerMenu from './DrawerMenu';
 import DropDownMenu from './DropDownMenu';
+import { Link } from "react-router-dom";
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import AppBar from '@material-ui/core/AppBar';
@@ -113,22 +114,22 @@ export default function Header(props) {
                 <DrawerMenu toggleTheme={toggleTheme} currentTheme={saveTheme} />
               </Hidden>
               <Hidden smDown>
-
-                <Button 
-                  size="small"
-                  className={classes.button}
-                  startIcon={<HomeRoundedIcon/>}>
-                    
-                    Home
-                </Button>
-                
-                <Button 
-                  size="small"
-                  className={classes.button}
-                  startIcon={<LocalOfferOutlinedIcon/>}>
-                    
-                    Tag
-                </Button>
+                <Link to="/">
+                  <Button 
+                    size="small"
+                    className={classes.button}
+                    startIcon={<HomeRoundedIcon/>}>
+                      Home
+                  </Button>
+                </Link>
+                <Link to="/tag">
+                  <Button 
+                    size="small"
+                    className={classes.button}
+                    startIcon={<LocalOfferOutlinedIcon/>}>
+                      Tag
+                  </Button>
+                </Link>
                 <Button
                   size="small"
                   className={classes.toggle}

@@ -1,6 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
+import { Link } from "react-router-dom";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -57,7 +57,7 @@ export default function CategoryItem() {
   return (
     <List component="nav" className={classes.list}>
 
-      <ListItem button className={classes.listItem}>
+      <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f" }}>
         <ListItemIcon className={classes.listItemIcon}>
           {open ? 
             <ArrowRightIcon className={classes.icon} onClick={handleClick}/> 
@@ -72,7 +72,7 @@ export default function CategoryItem() {
 
       <Collapse in={open} timeout="auto" className={classes.nested}>
         <List component="div" className={classes.list}>
-          <ListItem button className={classes.listItem}>
+          <ListItem button className={classes.listItem}   {...{ component: Link, to: "/sub/f/first" }}>
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
@@ -83,7 +83,7 @@ export default function CategoryItem() {
            
 
           </ListItem>
-          <ListItem button className={classes.listItem}>
+          <ListItem button className={classes.listItem}  {...{ component: Link, to: "/sub/f/second" }}>
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
