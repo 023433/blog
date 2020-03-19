@@ -6,6 +6,7 @@ import PostItem from './PostItem'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import PaginationBackground from './PaginationBackground';
 
 export default function SearchTagPostList() {
 
@@ -47,6 +48,12 @@ export default function SearchTagPostList() {
       </Card>
 
       <PostItem/>
+      <PostItem/>
+      <PostItem/>
+      <PostItem/>
+      <PostItem/>
+
+      <PaginationBackground/>
 
     </React.Fragment>
   );

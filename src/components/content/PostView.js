@@ -105,7 +105,11 @@ export default function PostView() {
       <PostViewTag/>
               
       <Divider/>
+
       <PostViewReply/>
+      
+      <Divider/>
+
     </Card>
   );
 };

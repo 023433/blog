@@ -5,6 +5,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
+import Pagination from './Pagination';
+
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
@@ -36,6 +38,19 @@ export default function PostViewCategory() {
     },
     cardContent: {
       paddingTop: "0px"
+    },
+    paging: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    pagination: {
+      "& ul li button span": {
+        color: theme.palette.tertiary.textColor,
+      },
+      "& .Mui-selected": {
+        backgroundColor: theme.palette.tag.backgroundColor,
+      }
     }
   }));
 
@@ -59,6 +74,12 @@ export default function PostViewCategory() {
         <PostViewCategoryItem/>
         <PostViewCategoryItem/>
         <PostViewCategoryItem/>
+        <PostViewCategoryItem/>
+        <PostViewCategoryItem/>
+      </CardContent>
+
+      <CardContent className={classes.paging}>
+        <Pagination className={classes.pagination} count={10} variant="outlined" shape="rounded" />
       </CardContent>
 
     </React.Fragment>

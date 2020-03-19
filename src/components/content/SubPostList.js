@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+
+import PaginationBackground from './PaginationBackground';
+
 export default function SubPostList() {
 
   let { first, second, third } = useParams();
@@ -59,6 +62,9 @@ export default function SubPostList() {
       <PostItem/>
       <PostItem/>
       <PostItem/>
+
+      <PaginationBackground/>
+
     </React.Fragment>
   );
 }
