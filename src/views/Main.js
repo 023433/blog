@@ -41,13 +41,13 @@ export default function Main() {
       secondary: {
         main: '#fff',
         textColor: '#616161',
-        fontSize: '15px',
+        fontSize: '14px',
         boxShadow: "0 2px 4px 0 #eeeeee"
       },
       tertiary: {
         main: '#fff',
         textColor: '#263238',
-        fontSize: '15px',
+        fontSize: '14px',
         boxShadow: "0 2px 4px 0 #eeeeee"
       },
       toggle: {
@@ -61,7 +61,7 @@ export default function Main() {
         color: "#E6E6E6"
       },
       inputSearch: {
-        border: "1px solid D8D8D8",
+        border: "1px solid #D8D8D8",
         bgColor: "#fff",
         color: "#151515"
       },
@@ -94,6 +94,12 @@ export default function Main() {
       },
       badge: {
         backgroundColor: "#E6E6E6"
+      },
+      tag: {
+        backgroundColor: "#D8D8D8"
+      },
+      saveButton: {
+        backgroundColor: "#133a70"
       }
     },
     bgColor: '#f2f6fc'
@@ -162,6 +168,12 @@ export default function Main() {
         }
       },
       badge: {
+        backgroundColor: "#2E2E2E"
+      },
+      tag: {
+        backgroundColor: "#2E2E2E"
+      },
+      saveButton: {
         backgroundColor: "#2E2E2E"
       }
       

@@ -9,6 +9,11 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Divider from '@material-ui/core/Divider';
+
+import PostViewCategory from './PostViewCategory';
+import PostViewTag from './PostViewTag';
+import PostViewReply from './PostViewReply';
 
 export default function PostView() {
   let { id } = useParams();
@@ -62,7 +67,7 @@ export default function PostView() {
         <Paper elevation={0} className={classes.subtitle}>
           <Breadcrumbs separator="›" className={classes.breadcrumbs}>
             <Typography variant="caption">Material-UI</Typography>
-            <Typography variant="caption" >Breadcrumb</Typography>
+            <Typography variant="caption">Breadcrumb</Typography>
           </Breadcrumbs>
           <Typography variant="caption" className={classes.date}>
             2020-03-01
@@ -90,8 +95,17 @@ export default function PostView() {
           내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
         </Typography>
       </CardContent>
+
+      <Divider/>
+
+      <PostViewCategory/>
+
+      <Divider/>
+
+      <PostViewTag/>
               
-        
+      <Divider/>
+      <PostViewReply/>
     </Card>
   );
 };

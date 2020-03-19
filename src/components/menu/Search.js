@@ -12,7 +12,7 @@ export default function Search() {
 
   const useStyles = makeStyles(theme => ({
     input: {
-      border: theme.palette.inputSearch.border,
+      border: "none",
       backgroundColor: theme.palette.inputSearch.bgColor,
       color: theme.palette.inputSearch.color
     },

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
@@ -114,7 +115,7 @@ export default function DrawerMenu(props) {
 
       <Divider />
 
-      <List className={classes.list}>
+      <List className={classes.list} {...{ component: Link, to: "/" }}>
         <ListItem button>
           <ListItemIcon className={classes.listItemIcon}>
             <HomeRoundedIcon className={classes.icon}/>
@@ -125,7 +126,7 @@ export default function DrawerMenu(props) {
 
       <Divider />
 
-      <List className={classes.list}>
+      <List className={classes.list} {...{ component: Link, to: "/tag" }}>
         <ListItem button>
           <ListItemIcon className={classes.listItemIcon}>
             <LocalOfferOutlinedIcon className={classes.icon}/>
