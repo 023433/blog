@@ -11,6 +11,9 @@ import Input from '@material-ui/core/Input';
 import PersonIcon from '@material-ui/icons/Person';
 import LockIcon from '@material-ui/icons/Lock';
 
+import PaginationBackground from './PaginationBackground';
+import PostViewReplyItem from './PostViewReplyItem';
+
 const useStyles = makeStyles(theme => ({
   input: {
     border: "none",
@@ -86,6 +89,7 @@ export default function PostViewReply() {
               className={classes.input}
               startAdornment={<LockIcon className={classes.icon}/>}
               placeholder=" Password"
+              type="password"
               fullWidth/>
           </Paper>
         </Grid>
@@ -111,6 +115,15 @@ export default function PostViewReply() {
       </Grid>
         
       </CardContent>
+
+      <PostViewReplyItem depth={0}/>
+      <PostViewReplyItem depth={1}/>
+      <PostViewReplyItem depth={3}/>
+      <PostViewReplyItem depth={4}/>
+      <PostViewReplyItem depth={5}/>
+
+      <PaginationBackground/>
+
     </React.Fragment>
   );
 };

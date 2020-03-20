@@ -108,7 +108,7 @@ export default function PostView() {
 
       <PostViewReply/>
       
-      <Divider/>
+
 
     </Card>
   );
