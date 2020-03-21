@@ -7,7 +7,7 @@ import Backdrop from '../../components/loading/Backdrop';
 import ApiAsync from '../../service/reducer/ApiAsync';
 
 export default function MainPostList() {
-
+  // eslint-disable-next-line
   const [state, dispatch] = ApiAsync(getUsers, []);
 
   async function getUsers() {
