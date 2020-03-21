@@ -3,13 +3,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 
-import MainPostList from '../../components/content/MainPostList';
-import SubPostList from '../../components/content/SubPostList';
-import SearchPostList from '../../components/content/SearchPostList';
-import SearchTagPostList from '../../components/content/SearchTagPostList';
+import MainPostList from '../post/MainPostList';
+import SubPostList from '../post/SubPostList';
+import SearchPostList from '../post/SearchPostList';
+import SearchTagPostList from '../post/SearchTagPostList';
+import TagList from '../post/TagList';
 
-import Tag from '../../components/content/Tag';
-import PostView from '../../components/content/PostView';
+import PostView from '../../components/post/PostView';
 
 import RightMenu from '../../components/menu/RightMenu';
 
@@ -40,7 +40,7 @@ export default function Main() {
             <Route path="/sub/:first"><SubPostList/></Route>
             <Route path="/search/:item"><SearchPostList/></Route>
             <Route path="/tag/:item"><SearchTagPostList/></Route>
-            <Route path="/tag"><Tag/></Route>
+            <Route path="/tag"><TagList/></Route>
             <Route path="/post/:id"><PostView/></Route>
           </Switch>
         </Grid>

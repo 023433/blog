@@ -2,13 +2,13 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { useParams } from "react-router-dom";
-import PostItem from './PostItem'
+import PostItem from '../../components/post/PostItem'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import PaginationBackground from './PaginationBackground';
+import PaginationBackground from '../../components/post/PaginationBackground';
 
-export default function SearchTagPostList() {
+export default function SearchPostList() {
 
   let { item } = useParams();
 
@@ -47,10 +47,6 @@ export default function SearchTagPostList() {
           
       </Card>
 
-      <PostItem/>
-      <PostItem/>
-      <PostItem/>
-      <PostItem/>
       <PostItem/>
 
       <PaginationBackground/>

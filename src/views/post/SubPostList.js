@@ -2,15 +2,19 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { useParams } from "react-router-dom";
-import PostItem from './PostItem'
+import PostItem from '../../components/post/PostItem'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import PaginationBackground from './PaginationBackground';
 
-export default function SearchPostList() {
+import Paper from '@material-ui/core/Paper';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
-  let { item } = useParams();
+import PaginationBackground from '../../components/post/PaginationBackground';
+
+export default function SubPostList() {
+
+  let { first, second, third } = useParams();
 
   const useStyles = makeStyles(theme => ({
     card: {
@@ -42,11 +46,21 @@ export default function SearchPostList() {
       <Card elevation={0} className={classes.card}>
 
         <CardContent className={classes.content}>             
-          <Typography variant="h6" component="h2" className={classes.title}>{item}</Typography>
+          <Paper elevation={0}>
+            <Breadcrumbs separator="›" className={classes.title}>
+              {first !== undefined ? <Typography variant="h6" component="h2" >{first}</Typography> : ""}
+              {second !== undefined ? <Typography variant="h6" component="h2" >{second}</Typography> : ""}
+              {third !== undefined ? <Typography variant="h6" component="h2" >{third}</Typography> : ""}
+            </Breadcrumbs>
+          </Paper>
         </CardContent>
           
       </Card>
 
+      <PostItem/>
+      <PostItem/>
+      <PostItem/>
+      <PostItem/>
       <PostItem/>
 
       <PaginationBackground/>

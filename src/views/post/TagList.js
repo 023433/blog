@@ -5,7 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-export default function Tag() {
+export default function TagList() {
 
   const useStyles = makeStyles(theme => ({
     card: {
