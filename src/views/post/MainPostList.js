@@ -12,7 +12,7 @@ export default function MainPostList() {
 
   async function getUsers() {
     const response = await Axios.get(
-      'https://jsonplaceholder.typicode.com/users'
+      'https://jsonplaceholder.typicode.com/posts'
     );
     return response;
   }
