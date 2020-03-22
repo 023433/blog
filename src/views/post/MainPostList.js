@@ -1,10 +1,10 @@
 import React from 'react';
-
 import PostItem from '../../components/post/PostItem'
 import PaginationBackground from '../../components/post/PaginationBackground';
-import Axios from 'axios';
+import Axios from '../../service/AxiosApi';
 import Backdrop from '../../components/loading/Backdrop';
-import ApiAsync from '../../service/reducer/ApiAsync';
+import ApiAsync from '../../service/api/reducer/ApiAsync';
+import Cookies from 'js-cookie';
 
 export default function MainPostList() {
   // eslint-disable-next-line
@@ -12,8 +12,11 @@ export default function MainPostList() {
 
   async function getUsers() {
     const response = await Axios.get(
-      'https://jsonplaceholder.typicode.com/posts'
+      '/auth/login'
     );
+    console.log(response);
+    console.log(Cookies.set("data", response.data));
+
     return response;
   }
 
@@ -22,14 +25,18 @@ export default function MainPostList() {
   if(isLoading){
     return (<Backdrop/>)
   }
+  
+  let postList;
+
+  if(data != null && typeof(data) == Array){
+    postList = data.map(post => (
+      <PostItem post={post}/>
+    ))
+  }
 
   return (
     <React.Fragment>
-      { 
-        data.map(user => (
-          <PostItem/>
-        ))
-      }
+      { postList }
       <PostItem/>
       <PaginationBackground/>
     

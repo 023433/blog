@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
-export default function PostItem() {
+export default function PostItem(props) {
 
   const useStyles = makeStyles(theme => ({
     card: {
@@ -95,6 +95,8 @@ export default function PostItem() {
   }));
 
   const classes = useStyles();
+
+  console.log(props)
   return (
     
     <Grid item className={classes.grid}>

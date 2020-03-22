@@ -26,7 +26,7 @@ export default function PostPagination() {
 
   return (
     <React.Fragment>
-      <Pagination className={classes.pagination} count={10} variant="outlined" shape="rounded" />
+      <Pagination className={classes.pagination} count={100} defaultPage={80}  siblingCount={2} variant="outlined" shape="rounded" />
     </React.Fragment>
   );
 }
