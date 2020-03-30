@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
+import Login from './main/Signin';
 
 export default function Main() {
 
@@ -186,7 +187,14 @@ export default function Main() {
       <Router>
         <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
           <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
-          <MainContent />
+          
+          <Switch>
+            <Route exact path="/signin"><Login/></Route>
+            <Route path="/*"><MainContent /></Route>
+          </Switch>
+         
+
+          
         </div>
       </Router>
     </ThemeProvider>

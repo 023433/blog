@@ -13,9 +13,9 @@ export default function Admin() {
       <CardHeader title="관리" icon={ <BuildRoundedIcon/>}/>
       <CardContent content={
         <React.Fragment>
-          <AdminItem name="로그인" />
-          <AdminItem name="관리자" />
-          <AdminItem name="글쓰기" />
+          <AdminItem name="로그인" link="/signin" />
+          <AdminItem name="관리자" link="/admin" />
+          <AdminItem name="글쓰기" link="/write" />
         </React.Fragment>
       }/>
     </React.Fragment>

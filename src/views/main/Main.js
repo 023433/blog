@@ -9,8 +9,8 @@ import SearchPostList from '../post/SearchPostList';
 import SearchTagPostList from '../post/SearchTagPostList';
 import TagList from '../post/TagList';
 
-import PostView from '../../components/post/PostView';
 
+import PostView from '../../components/post/PostView';
 import RightMenu from '../../components/menu/RightMenu';
 
 import Grid from '@material-ui/core/Grid';

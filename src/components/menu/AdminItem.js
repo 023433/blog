@@ -1,5 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Link } from "react-router-dom";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,11 +39,11 @@ export default function CategoryItem(props) {
   }));
 
   const classes = useStyles();
-
+  
   return (
     <List component="nav" className={classes.list}>
 
-      <ListItem button className={classes.listItem}>
+      <ListItem button className={classes.listItem} {...{ component: Link, to: props.link }}>
         <ListItemIcon className={classes.listItemIcon}>
           <AttachmentIcon className={classes.icon} /> 
         </ListItemIcon>

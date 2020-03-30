@@ -72,7 +72,7 @@ export default function CategoryItem() {
 
       <Collapse in={open} timeout="auto" className={classes.nested}>
         <List component="div" className={classes.list}>
-          <ListItem button className={classes.listItem}   {...{ component: Link, to: "/sub/f/first" }}>
+          <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f/first" }}>
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
@@ -83,7 +83,7 @@ export default function CategoryItem() {
            
 
           </ListItem>
-          <ListItem button className={classes.listItem}  {...{ component: Link, to: "/sub/f/second" }}>
+          <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f/second" }}>
             <ListItemIcon className={classes.listItemIcon}>
               <ArrowRightIcon className={classes.icon}/>
             </ListItemIcon>
