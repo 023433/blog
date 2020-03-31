@@ -12,9 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { Axios } from '../../service/ApiService';
-import Cookies from 'js-cookie';
-
+import { Axios, qs, Cookies } from '../../service/ApiService';
+import  Warning from '../../components/alert/Warning';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,26 +46,43 @@ export default function SignIn() {
 
   const login = async () => {
 
-
     const userId = document.getElementById('email').value;
     const userPwd = document.getElementById('password').value;
 
-    const response = await Axios.get(
+    const response = await Axios.post(
       '/auth/login',
-      {params: {userId: userId, userPwd: userPwd}}
-    );
+      qs.stringify({ userId, userPwd })
+    ).catch(error => {
+      console.log(error);
+    });
 
-    console.log(response);
+    if(response === undefined){
+      handleClickOpen();
+      return;
+    }
+    
     if(response.status === 200){
       Cookies.set("X_AUTH_TOKEN", response.data);
       history.push("/");
     }
+
   }
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   
   return (
     <Container component="main" maxWidth="xs" className={classes.main}>
+      <Warning open={open} onClose={handleClose} message={"아이디 비밀번호를 확인하세요"} />
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
