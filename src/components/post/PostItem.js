@@ -96,7 +96,6 @@ export default function PostItem(props) {
 
   const classes = useStyles();
 
-  console.log(props)
   return (
     
     <Grid item className={classes.grid}>

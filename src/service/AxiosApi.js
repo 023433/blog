@@ -6,6 +6,6 @@ const instance = Axios.create({
 });
 
 // Alter defaults after instance has been created
-instance.defaults.headers.common['Authorization'] = Cookies.get("X_AUTH_TOKEN");
+instance.defaults.headers.common['X-Auth-Token'] = Cookies.get("X_AUTH_TOKEN");
 
 export default instance;
