@@ -2,17 +2,29 @@ import React from 'react';
 import PostItem from '../../components/post/PostItem'
 import PaginationBackground from '../../components/post/PaginationBackground';
 import Backdrop from '../../components/loading/Backdrop';
-import { ApiAsync } from '../../service/ApiService';
+import { ApiAsync, Axios } from '../../service/ApiService';
 
 export default function MainPostList() {
   // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(getUsers, []);
+  const [state, dispatch] = ApiAsync(getPosts, []);
+  const { isLoading, data } = state;
 
-  async function getUsers() {
- 
+  async function getPosts() {
+    const response = await Axios.get(
+      '/posts/summary',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+      return response;
+    }
   }
 
-  const { isLoading, data } = state;
 
   if(isLoading){
     return (<Backdrop/>)
@@ -20,17 +32,18 @@ export default function MainPostList() {
   
   let postList;
 
-  if(data != null && typeof(data) == Array){
-    postList = data.map(post => (
-      <PostItem post={post}/>
+  if(data != null){
+    data.pageable["totalPages"] = data.totalPages
+
+    postList = data.content.map(post => (
+      <PostItem post={post} key={post.no}/>
     ))
   }
 
   return (
     <React.Fragment>
       { postList }
-      <PostItem/>
-      <PaginationBackground/>
+      <PaginationBackground pageable={data.pageable}/>
     
     </React.Fragment>
   )

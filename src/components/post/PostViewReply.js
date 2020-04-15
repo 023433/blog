@@ -122,7 +122,8 @@ export default function PostViewReply() {
       <PostViewReplyItem depth={4}/>
       <PostViewReplyItem depth={5}/>
 
-      <PaginationBackground/>
+      <PaginationBackground
+        pageable={ {"totalPages": 10, "pageNumber": 0} } />
 
     </React.Fragment>
   );

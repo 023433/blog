@@ -15,7 +15,17 @@ import PostViewCategory from './PostViewCategory';
 import PostViewTag from './PostViewTag';
 import PostViewReply from './PostViewReply';
 
+import Backdrop from '../../components/loading/Backdrop';
+
+import { ApiAsync, Axios } from '../../service/ApiService';
+import Moment from 'react-moment';
+
+import Image from '../svg/image/Image'
+
 export default function PostView() {
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getPost, []);
+  const { isLoading, data } = state;
   let { id } = useParams();
 
   const useStyles = makeStyles(theme => ({
@@ -52,47 +62,82 @@ export default function PostView() {
     coverMedia: {
       maxHeight: "500px",
       minHeight: "300px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      alignSelf: "flex-end",
     }
 
   }));
 
   const classes = useStyles();
+
+  async function getPost() {
+    const response = await Axios.get(
+      '/post/content/' + id,
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+
+  const breadcrumbs = (item, component) => {
+
+    if(component == null){
+      component = [];
+    }
+
+    component = [(<Typography variant="caption" key={item.no}>{item.title}</Typography>), ...component];
+
+    if(item.parent != null){
+      return breadcrumbs(item.parent, component);
+    }
+
+    return component;
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+
+  const post = data.post;
+  const content = data;
+  const categories = post.category;
+  const category = categories[0].category;
+
   return (
     <Card elevation={0} className={classes.card}>
       <CardContent>
         <Typography variant="h4" noWrap className={classes.title}>
-          제목제목제목제목제목제목제목제목제목
+          {post.subject}
         </Typography>
 
         <Paper elevation={0} className={classes.subtitle}>
           <Breadcrumbs separator="›" className={classes.breadcrumbs}>
-            <Typography variant="caption">Material-UI</Typography>
-            <Typography variant="caption">Breadcrumb</Typography>
+            {breadcrumbs(category)}
           </Breadcrumbs>
           <Typography variant="caption" className={classes.date}>
-            2020-03-01
+            <Moment date={post.createDate} format="YYYY-MM-DD" />
           </Typography>
         </Paper>
       </CardContent>
 
       <CardContent>
-        <CardMedia
-          className={classes.coverMedia}
-          image="/static/images/react.png"/>
+        <CardMedia className={classes.coverMedia}>
+          <Image url={content.mainImage} />
+        </CardMedia>
       </CardContent>
 
       <CardContent>             
         <Typography variant="body2" component="h2" className={classes.description}>
-          {id}내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+          {content.content}
         </Typography>
       </CardContent>
 

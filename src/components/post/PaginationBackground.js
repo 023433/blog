@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 
 import Pagination from './Pagination';
 
-export default function PostPaginationBackground() {
+export default function PostPaginationBackground(props) {
   const useStyles = makeStyles(theme => ({
     card: {
       display: 'flex',
@@ -27,7 +27,7 @@ export default function PostPaginationBackground() {
   return (
     <Card elevation={0} className={classes.card}>
       <CardContent className={classes.content}>
-        <Pagination/>
+        <Pagination pageable={props.pageable}/>
       </CardContent>
     </Card>
   );

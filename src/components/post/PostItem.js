@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
+import Moment from 'react-moment';
+import Image from '../svg/image/Image'
+
 export default function PostItem(props) {
 
   const useStyles = makeStyles(theme => ({
@@ -86,30 +89,54 @@ export default function PostItem(props) {
       }
     },
     coverMedia: {
+      backgroundColor: theme.palette.badge.backgroundColor,
       minHeight: "150px",
       [theme.breakpoints.down('sm')]: {
         minHeight: "300px"
       },
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      alignSelf: "flex-end"
     }
 
   }));
 
   const classes = useStyles();
+  const post = props.post.post;
+  const summary = props.post;
+  const categories = post.category;
+  const category = categories[0].category;
+
+  const breadcrumbs = (item, component) => {
+
+    if(component == null){
+      component = [];
+    }
+
+    component = [(<Typography variant="caption" key={item.no}>{item.title}</Typography>), ...component];
+
+    if(item.parent != null){
+      return breadcrumbs(item.parent, component);
+    }
+
+    return component;
+  }
+
 
   return (
     
     <Grid item className={classes.grid}>
-      <Link to="/post/3">
+      <Link to={"/post/" + post.no}>
         <Card elevation={0} className={classes.card}>
           <CardActionArea>
             <Grid container spacing={1} >
               <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
                 <CardContent className={classes.cover}>
 
-                  <CardMedia
-                    className={classes.coverMedia}
-                    image="/static/images/react.png"
-                  />
+                  <CardMedia className={classes.coverMedia}>
+                    <Image url={summary.thumbnail} maxHeight="150px" />
+                  </CardMedia>
                 </CardContent>
                 
               </Grid>
@@ -117,31 +144,21 @@ export default function PostItem(props) {
 
                   <CardContent className={classes.detail}>
                     <Typography variant="h6" noWrap className={classes.title}>
-                      제목제목제목제목제목제목제목제목제목
+                      {post.subject}
                     </Typography>
 
                     <Paper elevation={0} className={classes.subtitle}>
                       <Breadcrumbs separator="›" className={classes.breadcrumbs}>
-                        <Typography variant="caption">Material-UI</Typography>
-                        <Typography variant="caption" >Breadcrumb</Typography>
+                        {breadcrumbs(category)}
                       </Breadcrumbs>
                       <Typography variant="caption" className={classes.date}>
-                        2020-03-01
+                        <Moment date={post.createDate} format="YYYY-MM-DD" />
                       </Typography>
                     </Paper>
                     
                     <Paper elevation={0}>
                       <Typography variant="body2" component="h2" className={classes.description}>
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-                        내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
+                        {summary.summary}
                       </Typography>
                     </Paper>
                     

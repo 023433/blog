@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import Pagination from '@material-ui/lab/Pagination';
 
-export default function PostPagination() {
+export default function PostPagination(props) {
   const useStyles = makeStyles(theme => ({
     paging: {
       display: "flex",
@@ -23,10 +23,16 @@ export default function PostPagination() {
   }));
 
   const classes = useStyles();
+  const pageable = props.pageable;
 
   return (
     <React.Fragment>
-      <Pagination className={classes.pagination} count={1000} defaultPage={800} variant="outlined" shape="rounded" />
+      <Pagination 
+        className={classes.pagination} 
+        count={pageable.totalPages} 
+        defaultPage={pageable.pageNumber + 1} 
+        variant="outlined" 
+        shape="rounded" />
     </React.Fragment>
   );
 }

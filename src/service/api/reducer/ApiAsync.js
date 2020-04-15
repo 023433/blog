@@ -6,25 +6,19 @@ function reducer(state, action) {
   switch (action.state) {
     case ApiState.Success:
       return {
-        isDone: true,
         isLoading: false,
-        isSuccess: true,
         data: action.data,
         msg: action.msg
       };
     case ApiState.Error:
       return {
-        isDone: true,
         isLoading: false,
-        isSuccess: false,
         data: null,
         msg: action.msg
       };
     default:
       return {
-        isDone: true,
         isLoading: false,
-        isSuccess: false,
         data: null,
         msg: null
       };
@@ -34,7 +28,6 @@ function reducer(state, action) {
 export default function ApiAsync(callback, deps = []) {
 
   const [state, dispatch] = useReducer(reducer, {
-    isDone: false,
     isLoading: true,
     data: null
   });
@@ -48,7 +41,6 @@ export default function ApiAsync(callback, deps = []) {
       dispatch({ 
         state: ApiState.Success, 
         data: response.data,
-        isDone: true,
         isLoading: false
       });
 
@@ -57,7 +49,6 @@ export default function ApiAsync(callback, deps = []) {
       dispatch({ 
         state: ApiState.Error, 
         data: null,
-        isDone: true,
         isLoading: false,
         error: e 
       });

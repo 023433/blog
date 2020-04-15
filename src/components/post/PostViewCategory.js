@@ -79,7 +79,12 @@ export default function PostViewCategory() {
       </CardContent>
 
       <CardContent className={classes.paging}>
-        <Pagination className={classes.pagination} count={10} variant="outlined" shape="rounded" />
+        <Pagination 
+          className={classes.pagination} 
+          pageable={ {"totalPages": 10, "pageNumber": 0} }
+          count={10} 
+          variant="outlined" 
+          shape="rounded" />
       </CardContent>
 
     </React.Fragment>
