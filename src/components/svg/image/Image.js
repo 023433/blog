@@ -11,9 +11,13 @@ export default function Image(props) {
       logoSecond: {
         fill: theme.palette.logo.second.fill
       },
-      img: {
+      imgLogo: {
         width: maxHeight,
-        height: maxHeight
+        height: maxHeight,
+      },
+      img: {
+        maxWidth: "100%",
+        maxHeight: "100%"
       },
       card: {
         display: "flex",
@@ -39,7 +43,7 @@ export default function Image(props) {
 
   const logo = 
                 <div className={classes.card}>
-                  <div className={classes.img}>
+                  <div className={classes.imgLogo}>
                     <LogoMedium logoFirst={classes.logoFirst} logoSecond={classes.logoSecond}/>
                   </div>
                 </div>;
