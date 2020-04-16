@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LogoMedium from '../logo/medium'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-export default function Image(props) {
+export default function Images(props) {
   const maxHeight = props.maxHeight? props.maxHeight : "300px";
   const useStyles = makeStyles(theme => ({
       logoFirst: {
@@ -13,7 +13,7 @@ export default function Image(props) {
       },
       imgLogo: {
         width: maxHeight,
-        height: maxHeight,
+        height: maxHeight
       },
       img: {
         maxWidth: "100%",
@@ -28,29 +28,48 @@ export default function Image(props) {
   }));
 
   const classes = useStyles();
+  const [imgExists, setImgExists] = useState(false);
+
 
   function imageExists(imageUrl){
-      var http = new XMLHttpRequest();
-  
-      http.open('HEAD', imageUrl, false);
-      http.send();
-  
-      return http.status !== 404;
+
+      if(imgExists){
+        return;
+      }
+
+      var image = new Image();
+      image.src = imageUrl;
+      
+      image.onload = function(){
+        setImgExists(true);
+      }
+
+      image.onerror = function(){
+        setImgExists(false);
+      }
+
   }
 
   const url = props.url;
-  const image = <img className={classes.img} src={url} alt=""/>;
 
-  const logo = 
-                <div className={classes.card}>
-                  <div className={classes.imgLogo}>
-                    <LogoMedium logoFirst={classes.logoFirst} logoSecond={classes.logoSecond}/>
-                  </div>
-                </div>;
+  imageExists(url)
+
+  let image;
+
+  if(imgExists){
+    image = <img className={classes.img} src={url} alt=""/>;
+  }else{
+    image = <div className={classes.card}>
+                <div className={classes.imgLogo}>
+                  <LogoMedium logoFirst={classes.logoFirst} logoSecond={classes.logoSecond}/>
+                </div>
+              </div>;
+  }
+
 
   return (
       <React.Fragment>
-          {imageExists(url) === true ? image : logo }
+          {image}
       </React.Fragment>
   )
 }
