@@ -1,8 +1,16 @@
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 
+let apiUrl = "";
+
+if(process.env.NODE_ENV === "production"){
+    apiUrl = "https://api.devj.io";
+}else{
+    apiUrl = "http://localhost:8080";
+}
+
 const instance = Axios.create({
-    baseURL: 'https://api.devj.io'
+    baseURL: apiUrl
 });
 
 // Alter defaults after instance has been created
