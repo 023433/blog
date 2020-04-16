@@ -24,7 +24,7 @@ export default function MainPostList() {
       return response;
     }
   }
-
+console.log(process.env.NODE_ENV)
 
   if(isLoading){
     return (<Backdrop/>)
