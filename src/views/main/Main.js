@@ -35,7 +35,7 @@ export default function Main() {
 
         <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
           <Switch>
-            <Route exact path="/"><MainPostList/></Route>
+            <Route exact path="/" component={MainPostList} />
             <Route path="/sub/:first/:second"><SubPostList/></Route>
             <Route path="/sub/:first"><SubPostList/></Route>
             <Route path="/search/:item"><SearchPostList/></Route>

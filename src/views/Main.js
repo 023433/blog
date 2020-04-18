@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
-import Login from './main/Signin';
+import Signin from './main/Signin';
 
 export default function Main() {
 
@@ -189,7 +189,7 @@ export default function Main() {
           <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
           
           <Switch>
-            <Route exact path="/signin"><Login/></Route>
+            <Route exact path="/signin"><Signin/></Route>
             <Route path="/*"><MainContent /></Route>
           </Switch>
          

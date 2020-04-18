@@ -1,7 +1,10 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import { Route } from 'react-router';
+import { Link } from 'react-router-dom';
 import Pagination from '@material-ui/lab/Pagination';
+import PaginationItem from '@material-ui/lab/PaginationItem';
 
 export default function PostPagination(props) {
   const useStyles = makeStyles(theme => ({
@@ -24,15 +27,25 @@ export default function PostPagination(props) {
 
   const classes = useStyles();
   const pageable = props.pageable;
+  const path = props.path? undefined : "";
+  const currentPage = pageable.pageNumber? (pageable.pageNumber + 1) : 1;
 
   return (
-    <React.Fragment>
-      <Pagination 
+      <Pagination
         className={classes.pagination} 
         count={pageable.totalPages} 
-        defaultPage={pageable.pageNumber + 1} 
-        variant="outlined" 
-        shape="rounded" />
-    </React.Fragment>
+        page={currentPage}
+        variant="outlined"
+        shape="rounded"
+        renderItem={(item) => (
+          <PaginationItem
+            component={Link}
+            to={{ pathname: `/${path}`, query: { page: item.page } , search: `?page=${item.page}`}} 
+            // to={`/${item.page === 1 ? 'post/2' : `?page=${item.page}`}`}
+            {...item}
+          />
+        )}
+      />
+      
   );
 }
