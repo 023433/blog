@@ -41,7 +41,7 @@ export default function Main() {
             <Route path="/search/:item"><SearchPostList/></Route>
             <Route path="/tag/:item"><SearchTagPostList/></Route>
             <Route path="/tag"><TagList/></Route>
-            <Route path="/post/:id"><PostView/></Route>
+            <Route path="/post/:id" component={PostView} />
           </Switch>
         </Grid>
 

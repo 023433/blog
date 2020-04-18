@@ -1,12 +1,13 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Link } from "react-router-dom";
 
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
-export default function NewPostItem() {
+export default function NewPostItem(props) {
 
   const useStyles = makeStyles(theme => ({
     nested: {
@@ -32,15 +33,16 @@ export default function NewPostItem() {
   }));
 
   const classes = useStyles();
+  const post = props.post;
 
   return (
-    <ListItem button className={classes.listItem}>
+    <ListItem button className={classes.listItem} {...{ component: Link, to: "/post/"+post.no }}>
       <ListItemIcon className={classes.listItemIcon}>
           <FiberManualRecordIcon className={classes.icon}/> 
       </ListItemIcon>
 
       <Typography variant="inherit" noWrap className={classes.listItemText}>
-        최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글
+        {post.subject}
       </Typography>
     </ListItem>
   )

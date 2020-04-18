@@ -23,10 +23,11 @@ import Moment from 'react-moment';
 import Image from '../svg/image/Image'
 
 export default function PostView() {
-  // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(getPost, []);
-  const { isLoading, data } = state;
   let { id } = useParams();
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getPost, [id]);
+  const { isLoading, data } = state;
 
   const useStyles = makeStyles(theme => ({
     card: {

@@ -40,7 +40,6 @@ export default function PostPagination(props) {
           <PaginationItem
             component={Link}
             to={{ pathname: `/${path}`, query: { page: item.page } , search: `?page=${item.page}`}} 
-            // to={`/${item.page === 1 ? 'post/2' : `?page=${item.page}`}`}
             {...item}
           />
         )}
