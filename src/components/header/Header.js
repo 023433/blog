@@ -100,9 +100,14 @@ export default function Header(props) {
               justify="flex-end">
 
               <Hidden smDown>
-                <DropDownMenu/>
-                <DropDownMenu/>
-                <DropDownMenu/>
+                {
+                  props.category != null ?
+                    props.category.map(item => (
+                      <DropDownMenu category={item} key={item.no}/>
+                    ))
+                    :
+                    null
+                }
               </Hidden>
             </Grid>
 
@@ -113,7 +118,7 @@ export default function Header(props) {
               style={{paddingRight: "15px"}}>
 
               <Hidden mdUp>
-                <DrawerMenu toggleTheme={toggleTheme} currentTheme={saveTheme} />
+                <DrawerMenu toggleTheme={toggleTheme} currentTheme={saveTheme} category={props.category} />
               </Hidden>
               <Hidden smDown>
                 <Link to="/">

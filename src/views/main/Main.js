@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
   })
 );
 
-export default function Main() {
+export default function Main(props) {
   const classes = useStyles();
-  
+  const category = props.category;
   return (
     <Container maxWidth="lg" className={classes.container}>
       
@@ -35,7 +35,7 @@ export default function Main() {
 
         <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
           <Switch>
-            <Route exact path="/" component={MainPostList} />
+            <Route exact path="/" component={(props) => <MainPostList {...props} />} />
             <Route path="/sub/:first/:second"><SubPostList/></Route>
             <Route path="/sub/:first"><SubPostList/></Route>
             <Route path="/search/:item"><SearchPostList/></Route>
@@ -46,7 +46,7 @@ export default function Main() {
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-          <RightMenu/>
+          <RightMenu category={category}/>
         </Grid>
 
       </Grid>

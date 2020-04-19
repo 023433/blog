@@ -88,6 +88,7 @@ export default function DrawerMenu(props) {
   }
 
   const [theme, setTheme] = React.useState(saveTheme);
+  const category = props.category;
 
   
   return (
@@ -160,9 +161,14 @@ export default function DrawerMenu(props) {
 
       <CardContent content={
         <React.Fragment>
-          <CategoryItem/>
-          <CategoryItem/>
-          <CategoryItem/>
+          {
+            category != null ?
+              category.map(item => (
+                <CategoryItem category={item} key={item.no}/>
+              ))
+              :
+              null
+          }
         </React.Fragment>
       }/>
       <Divider />

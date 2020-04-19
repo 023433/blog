@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
 import Signin from './main/Signin';
+import Backdrop from '../components/loading/Backdrop';
+
+import { ApiAsync, Axios } from '../service/ApiService';
 
 export default function Main() {
 
@@ -182,18 +185,42 @@ export default function Main() {
     bgColor: '#151515'
   });
 
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getCategory, []);
+  const { isLoading, data } = state;
+
+  async function getCategory() {
+    const response = await Axios.get(
+      '/categories/count',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+  
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+  
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <Router>
         <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
-          <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
+          <Header toggleTheme={toggleTheme} currentTheme={saveTheme} category={data}/>
           
           <Switch>
             <Route exact path="/signin"><Signin/></Route>
-            <Route path="/*"><MainContent /></Route>
+            <Route path="/*"><MainContent category={data}/></Route>
           </Switch>
-         
-
           
         </div>
       </Router>

@@ -57,6 +57,7 @@ export default function CategoryItem(props) {
 
   const category = props.category;
   const title = category.title;  
+  const count = category.count;  
 
   return (
     <List component="nav" className={classes.list}>
@@ -71,7 +72,7 @@ export default function CategoryItem(props) {
           <ListItemText primary={title} className={classes.listItemText}/>
         </ListItem>
         <ListItemSecondaryAction>
-          <Badge badgeContent={10000} max={999} className={classes.badge} />
+          <Badge badgeContent={count} max={999} className={classes.badge} />
         </ListItemSecondaryAction>
         
       </ListItem>   
@@ -103,6 +104,7 @@ export default function CategoryItem(props) {
     const category = props.category;
     const parentTitle = category.parentTitle;
     const title = category.title;
+    const count = category.count;  
 
     return (
         <List component="div" className={classes.list}>
@@ -116,7 +118,7 @@ export default function CategoryItem(props) {
               <ListItemText primary={title} className={classes.listItemText}/>
             </ListItem>
             <ListItemSecondaryAction>
-              <Badge max={999} badgeContent={4} className={classes.badge} />
+              <Badge max={999} badgeContent={count} className={classes.badge} />
             </ListItemSecondaryAction>
           </ListItem>
 

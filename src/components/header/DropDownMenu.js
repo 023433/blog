@@ -10,7 +10,7 @@ import Popper from '@material-ui/core/Popper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Paper from '@material-ui/core/Paper';
 
-export default function DropDownMenu() {
+export default function DropDownMenu(props) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -36,6 +36,7 @@ export default function DropDownMenu() {
   }));
 
   const classes = useStyles();
+  const category = props.category;
 
   return (
     <React.Fragment>
@@ -44,7 +45,7 @@ export default function DropDownMenu() {
         onClick={handleClick} 
         endIcon={open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}>
           
-        메뉴
+        {category.title}
       </Button>
       
       <Popper open={open} anchorEl={anchorEl} transition disablePortal>
