@@ -10,7 +10,8 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Badge from '@material-ui/core/Badge';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-export default function CategoryItem() {
+
+export default function CategoryItem(props) {
 
   const useStyles = makeStyles(theme => ({
     nested: {
@@ -54,48 +55,87 @@ export default function CategoryItem() {
     setOpen(!open);
   };
 
+  const category = props.category;
+  const title = category.title;  
+
   return (
     <List component="nav" className={classes.list}>
 
-      <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f" }}>
+      <ListItem button className={classes.listItem}>
         <ListItemIcon className={classes.listItemIcon}>
           {open ? 
             <ArrowRightIcon className={classes.icon} onClick={handleClick}/> 
             : <ArrowDropDownIcon className={classes.icon} onClick={handleClick}/>}
         </ListItemIcon>
-
-        <ListItemText primary="메뉴" className={classes.listItemText}/>
+        <ListItem className={classes.listItem} {...{ component: Link, to: "/sub/" + title }}>
+          <ListItemText primary={title} className={classes.listItemText}/>
+        </ListItem>
         <ListItemSecondaryAction>
           <Badge badgeContent={10000} max={999} className={classes.badge} />
         </ListItemSecondaryAction>
-      </ListItem>
+        
+      </ListItem>   
 
-      <Collapse in={open} timeout="auto" className={classes.nested}>
-        <List component="div" className={classes.list}>
-          <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f/first" }}>
-            <ListItemIcon className={classes.listItemIcon}>
-              <ArrowRightIcon className={classes.icon}/>
-            </ListItemIcon>
-            <ListItemText primary="첫번째" className={classes.listItemText}/>
-            <ListItemSecondaryAction>
-              <Badge badgeContent={4} className={classes.badge} />
-            </ListItemSecondaryAction>
-           
+      {
+        category.children.map((category) => {
+          category.parentTitle = title;
+          return (
+            <Collapse in={open} timeout="auto" className={classes.nested} key={category.no} >
+              <SubCategoeyItem category={category} open={open}/>
+            </Collapse>
 
-          </ListItem>
-          <ListItem button className={classes.listItem} {...{ component: Link, to: "/sub/f/second" }}>
-            <ListItemIcon className={classes.listItemIcon}>
-              <ArrowRightIcon className={classes.icon}/>
-            </ListItemIcon>
-            <ListItemText primary="두번째" className={classes.listItemText}/>
-            <ListItemSecondaryAction>
-              <Badge badgeContent={4} className={classes.badge} />
-            </ListItemSecondaryAction>
-
-          </ListItem>
-        </List>
-      </Collapse>
+          );
+        })
+      }   
 
     </List>
   )
+
+  
+  function SubCategoeyItem(props){
+
+    const [open, setOpen] = React.useState(props.open);
+
+    const handleClick = () => {
+      setOpen(!open);
+    };
+
+    const category = props.category;
+    const parentTitle = category.parentTitle;
+    const title = category.title;
+
+    return (
+        <List component="div" className={classes.list}>
+          <ListItem button className={classes.listItem} key={category.no}>
+            <ListItemIcon className={classes.listItemIcon}>
+              {open ? 
+              <ArrowRightIcon className={classes.icon} onClick={handleClick}/> 
+              : <ArrowDropDownIcon className={classes.icon} onClick={handleClick}/>}
+            </ListItemIcon>
+            <ListItem className={classes.listItem} {...{ component: Link, to: "/sub/" + parentTitle + "/" + title }}>
+              <ListItemText primary={title} className={classes.listItemText}/>
+            </ListItem>
+            <ListItemSecondaryAction>
+              <Badge max={999} badgeContent={4} className={classes.badge} />
+            </ListItemSecondaryAction>
+          </ListItem>
+
+          {
+              category.children.map((category) => {
+                category.parentTitle = parentTitle + "/" + title;
+                return (
+                  <Collapse in={open} timeout="auto" className={classes.nested} key={category.no} >
+                    <SubCategoeyItem category={category} key={category.no} open={open}/>
+                  </Collapse>
+                );
+              })
+            
+          }
+
+        </List>
+    );
+    
+  }
+
 }
+
