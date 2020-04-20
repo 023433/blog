@@ -27,7 +27,7 @@ export default function PostPaginationBackground(props) {
   return (
     <Card elevation={0} className={classes.card}>
       <CardContent className={classes.content}>
-        <Pagination pageable={props.pageable}/>
+        <Pagination pageable={props.pageable} path={props.path}/>
       </CardContent>
     </Card>
   );

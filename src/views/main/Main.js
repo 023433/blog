@@ -36,11 +36,13 @@ export default function Main(props) {
         <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
           <Switch>
             <Route exact path="/" component={(props) => <MainPostList {...props} />} />
-            <Route path="/sub/:first/:second"><SubPostList/></Route>
-            <Route path="/sub/:first"><SubPostList/></Route>
-            <Route path="/search/:item"><SearchPostList/></Route>
-            <Route path="/tag/:item"><SearchTagPostList/></Route>
-            <Route path="/tag"><TagList/></Route>
+            <Route path="/sub/:first/:second/:third/:fourth" component={(props) => <SubPostList {...props} />} />
+            <Route path="/sub/:first/:second/:third" component={(props) => <SubPostList {...props} />} />
+            <Route path="/sub/:first/:second" component={(props) => <SubPostList {...props} />} />
+            <Route path="/sub/:first" component={(props) => <SubPostList {...props} />} />
+            <Route path="/search/:item" component={(props) => <SearchPostList {...props} />} />
+            <Route path="/tag/:item" component={(props) => <SearchTagPostList {...props} />} />
+            <Route path="/tag" component={(props) => <TagList {...props} />} />
             <Route path="/post/:id" component={PostView} />
           </Switch>
         </Grid>
