@@ -121,7 +121,7 @@ export default function PostViewCategory(props) {
           <Typography variant="subtitle1" noWrap >&nbsp;"&nbsp;</Typography>
 
           <Typography variant="body2" noWrap component="h2" className={classes.subtitle}>
-            카테고리의 다른 글
+            다른 글
           </Typography>
         </Paper>    
       </CardContent>
