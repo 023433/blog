@@ -1,12 +1,13 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-
+import { Link } from "react-router-dom";
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Moment from 'react-moment';
 
-export default function PostViewCategoryItem() {
+export default function PostViewCategoryItem(props) {
 
   const useStyles = makeStyles(theme => ({
     nested: {
@@ -41,17 +42,21 @@ export default function PostViewCategoryItem() {
 
   const classes = useStyles();
 
+  const post = props.post;
+  const no = post.no;  
+  const subject = post.subject;  
+  const createDate = post.createDate;  
   return (
-    <ListItem button className={classes.listItem}>
+    <ListItem button className={classes.listItem} {...{ component: Link, to: "/post/" + no }}>
       <ListItemIcon className={classes.listItemIcon}>
           <FiberManualRecordIcon className={classes.icon}/> 
       </ListItemIcon>
 
       <Typography variant="inherit" noWrap className={classes.listItemText}>
-        최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글 최근 글
+        {subject}
       </Typography>
       <Typography variant="caption" noWrap className={classes.date}>
-        2020-03-01
+        <Moment date={createDate} format="YYYY-MM-DD" />
       </Typography>
     </ListItem>
   )

@@ -26,7 +26,7 @@ export default function PostPagination(props) {
 
   const classes = useStyles();
   const pageable = props.pageable;
-  const path = props.path? undefined : "";
+  const path = props.path? props.path : "";
   const currentPage = pageable.pageNumber? (pageable.pageNumber + 1) : 1;
 
   return (

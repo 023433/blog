@@ -144,7 +144,7 @@ export default function PostView() {
 
       <Divider/>
 
-      <PostViewCategory/>
+      <PostViewCategory category={categories}/>
 
       <Divider/>
 

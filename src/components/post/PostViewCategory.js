@@ -1,5 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import Backdrop from '../../components/loading/Backdrop';
 
 import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
@@ -11,8 +12,10 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import PostViewCategoryItem from './PostViewCategoryItem';
+import { ApiAsync, Axios } from '../../service/ApiService';
+import { useLocation} from "react-router";
 
-export default function PostViewCategory() {
+export default function PostViewCategory(props) {
   const useStyles = makeStyles(theme => ({
     title: {
       marginBottom: "2px",
@@ -54,15 +57,68 @@ export default function PostViewCategory() {
     }
   }));
 
+  const breadcrumbs = (item, component) => {
+
+    if(component == null){
+      component = [];
+    }
+
+    component = [(<Typography variant="subtitle1" noWrap key={item.no}>{item.title}</Typography>), ...component];
+
+    if(item.parent != null){
+      return breadcrumbs(item.parent, component);
+    }
+
+    return component;
+  }
+  const location = useLocation();
+  const path = location.pathname.replace("/", "");
   const classes = useStyles();
+  const category = props.category[0].category;
+
+
+  // const queryString = QueryString.parse(location.search);
+
+  // if(queryString.cpage === undefined){
+  //   queryString.cpage = 1;
+  // }
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getPosts, []);
+  const { isLoading, data } = state;
+
+  async function getPosts() {
+    const response = await Axios.get(
+      '/posts/newest/' + category.no,
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+
+  data.pageable["totalPages"] = data.totalPages;
+
   return (
     <React.Fragment>
       <CardContent>         
         <Paper elevation={0} className={classes.category}>
+          
+          <Typography variant="subtitle1" noWrap >"&nbsp;</Typography>
           <Breadcrumbs separator={<NavigateNextIcon fontSize="small"/>} className={classes.breadcrumbs}>
-            <Typography variant="subtitle1" noWrap className={classes.title}>"Material-UI</Typography>
-            <Typography variant="subtitle1" noWrap className={classes.title}>Breadcrumb"</Typography>
+            {breadcrumbs(category)}
           </Breadcrumbs>
+          <Typography variant="subtitle1" noWrap >&nbsp;"&nbsp;</Typography>
 
           <Typography variant="body2" noWrap component="h2" className={classes.subtitle}>
             카테고리의 다른 글
@@ -71,20 +127,15 @@ export default function PostViewCategory() {
       </CardContent>
 
       <CardContent className={classes.cardContent}>
-        <PostViewCategoryItem/>
-        <PostViewCategoryItem/>
-        <PostViewCategoryItem/>
-        <PostViewCategoryItem/>
-        <PostViewCategoryItem/>
+        {
+          data.content.map(post => (
+            <PostViewCategoryItem post={post} key={post.no}/>
+          ))
+        }
       </CardContent>
 
       <CardContent className={classes.paging}>
-        <Pagination 
-          className={classes.pagination} 
-          pageable={ {"totalPages": 10, "pageNumber": 0} }
-          count={10} 
-          variant="outlined" 
-          shape="rounded" />
+        <Pagination path={path} pageable={data.pageable} />
       </CardContent>
 
     </React.Fragment>

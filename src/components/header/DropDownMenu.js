@@ -2,13 +2,19 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import Button from '@material-ui/core/Button';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import Popper from '@material-ui/core/Popper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Paper from '@material-ui/core/Paper';
+
+import { Link } from "react-router-dom";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+
+
 
 export default function DropDownMenu(props) {
 
@@ -32,11 +38,31 @@ export default function DropDownMenu(props) {
     item: {
       color: theme.palette.secondary.textColor,
       fontWeight: theme.palette.secondary.fontWeight
+    },
+    nested: {
+      paddingLeft: theme.spacing(1),
+    },
+    list: {
+      padding: "0px 4px 0px 2px"
+    },
+    listItem: {
+      padding: "0px"
+    },
+    listItemIcon: {
+      minWidth: "20px",
+      padding: "0px"
+    },
+    listItemText: {
+      color: theme.palette.secondary.textColor,
+      "& span": {
+        fontSize: theme.palette.secondary.fontSize
+      }
     }
   }));
 
   const classes = useStyles();
   const category = props.category;
+  const title = category.title;  
 
   return (
     <React.Fragment>
@@ -51,15 +77,56 @@ export default function DropDownMenu(props) {
       <Popper open={open} anchorEl={anchorEl} transition disablePortal>
         <Paper>
           <ClickAwayListener onClickAway={handleClose}>
-            <MenuList>
-              <MenuItem className={classes.item}>첫번째</MenuItem>
-              <MenuItem className={classes.item}>두번째</MenuItem>
-              <MenuItem className={classes.item}>세번째</MenuItem>
-            </MenuList>
+            <List component="nav" className={classes.list}>
+              {
+                category.children.map((category) => {
+                  category.parentTitle = title;
+                  return (
+                    <Collapse in={open} timeout="auto" className={classes.nested} key={category.no} >
+                      <SubCategoeyItem category={category} open={open}/>
+                    </Collapse>
+
+                  );
+                })
+              }   
+            </List>
           </ClickAwayListener>
         </Paper>
       </Popper>
       
     </React.Fragment>
   );
+
+
+
+
+  
+  
+  function SubCategoeyItem(props){
+
+    const category = props.category;
+    const parentTitle = category.parentTitle;
+    const title = category.title;
+
+    return (
+        <List component="div" className={classes.list}>
+          <ListItem button className={classes.listItem} key={category.no}>
+            <ListItem className={classes.listItem} {...{ component: Link, to: "/sub/" + parentTitle + "/" + title }}>
+              <ListItemText primary={title} className={classes.listItemText}/>
+            </ListItem>
+          </ListItem>
+          {
+            category.children.map((category) => {
+              category.parentTitle = parentTitle + "/" + title;
+              return (
+                <Collapse in={open} timeout="auto" className={classes.nested} key={category.no} >
+                  <SubCategoeyItem category={category} key={category.no} open={open}/>
+                </Collapse>
+              );
+            })
+          }
+        </List>
+    );
+    
+  }
 };
