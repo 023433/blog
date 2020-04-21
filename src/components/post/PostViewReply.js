@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Backdrop from '../../components/loading/Backdrop';
 
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
@@ -13,6 +14,9 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import PaginationBackground from './PaginationBackground';
 import PostViewReplyItem from './PostViewReplyItem';
+import { ApiAsync, Axios } from '../../service/ApiService';
+import { useLocation} from "react-router";
+import QueryString from "query-string";
 
 const useStyles = makeStyles(theme => ({
   input: {
@@ -56,8 +60,47 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function PostViewReply() {
+export default function PostViewReply(props) {
   const classes = useStyles();
+
+  const location = useLocation();
+  const path = location.pathname.replace("/", "");
+  const pageLabel = "cpage";
+  const queryString = QueryString.parse(location.search);
+  const page = queryString[pageLabel];
+  delete queryString[pageLabel];
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(() => getComments(page), [page]);
+  const { isLoading, data } = state;
+
+  async function getComments(page) {
+    let data = {}
+
+    if(page !== undefined && page !== "NaN" && page > 0){
+      data.pageNo = page - 1
+    }
+    const response = await Axios.get(
+      '/posts/newest/' ,
+      {params: data}
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+
+  data.pageable["totalPages"] = data.totalPages;
+
 
   return (
     <React.Fragment>
@@ -123,7 +166,10 @@ export default function PostViewReply() {
       <PostViewReplyItem depth={5}/>
 
       <PaginationBackground
-        pageable={ {"totalPages": 10, "pageNumber": 0} } />
+        pageable={data.pageable} 
+        path={path} 
+        search={queryString}
+        label={pageLabel} />
 
     </React.Fragment>
   );

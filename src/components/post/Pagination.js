@@ -27,7 +27,18 @@ export default function PostPagination(props) {
   const classes = useStyles();
   const pageable = props.pageable;
   const path = props.path? props.path : "";
+  const label = props.label? props.label : "page";
   const currentPage = pageable.pageNumber? (pageable.pageNumber + 1) : 1;
+
+  const search = props.search;
+
+  let searchStr = "";
+
+  if( typeof(search) == "object"){
+    for(var key in search) {
+      searchStr += "&" + key + "=" + search[key];
+    }
+  }
 
   return (
       <Pagination
@@ -39,7 +50,7 @@ export default function PostPagination(props) {
         renderItem={(item) => (
           <PaginationItem
             component={Link}
-            to={{ pathname: `/${path}`, query: { page: item.page } , search: `?page=${item.page}`}} 
+            to={{ pathname: `/${path}`, query: { page: item.page } , search: `?${label}=${item.page}${searchStr}`}} 
             {...item}
           />
         )}

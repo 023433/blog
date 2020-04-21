@@ -63,7 +63,10 @@ export default function MainPostList(props) {
   return (
     <React.Fragment>
       { postList }
-      <PaginationBackground pageable={data.pageable}/>
+      <PaginationBackground 
+        pageable={data.pageable}
+        search={data.search}
+        label="page"/>
     
     </React.Fragment>
   )

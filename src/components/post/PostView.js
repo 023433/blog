@@ -110,7 +110,7 @@ export default function PostView() {
 
   const post = data.post;
   const content = data;
-  const categories = post.category;
+  const categories = content.category;
   const category = categories[0].category;
 
   return (

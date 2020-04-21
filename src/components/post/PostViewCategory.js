@@ -14,6 +14,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PostViewCategoryItem from './PostViewCategoryItem';
 import { ApiAsync, Axios } from '../../service/ApiService';
 import { useLocation} from "react-router";
+import QueryString from "query-string";
 
 export default function PostViewCategory(props) {
   const useStyles = makeStyles(theme => ({
@@ -71,25 +72,30 @@ export default function PostViewCategory(props) {
 
     return component;
   }
+
+  const classes = useStyles();
+
   const location = useLocation();
   const path = location.pathname.replace("/", "");
-  const classes = useStyles();
   const category = props.category[0].category;
-
-
-  // const queryString = QueryString.parse(location.search);
-
-  // if(queryString.cpage === undefined){
-  //   queryString.cpage = 1;
-  // }
+  const pageLabel = "epage";
+  const queryString = QueryString.parse(location.search);
+  const page = queryString[pageLabel];
+  delete queryString[pageLabel];
 
   // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(getPosts, []);
+  const [state, dispatch] = ApiAsync(() => getPosts(page), [page]);
   const { isLoading, data } = state;
 
-  async function getPosts() {
+  async function getPosts(page) {
+    let data = {}
+
+    if(page !== undefined && page !== "NaN" && page > 0){
+      data.pageNo = page - 1
+    }
     const response = await Axios.get(
       '/posts/newest/' + category.no,
+      {params: data}
     ).catch(error => {
       console.log(error);
     });
@@ -115,13 +121,15 @@ export default function PostViewCategory(props) {
         <Paper elevation={0} className={classes.category}>
           
           <Typography variant="subtitle1" noWrap >"&nbsp;</Typography>
+
           <Breadcrumbs separator={<NavigateNextIcon fontSize="small"/>} className={classes.breadcrumbs}>
             {breadcrumbs(category)}
           </Breadcrumbs>
+
           <Typography variant="subtitle1" noWrap >&nbsp;"&nbsp;</Typography>
 
           <Typography variant="body2" noWrap component="h2" className={classes.subtitle}>
-            다른 글
+            의 다른 글
           </Typography>
         </Paper>    
       </CardContent>
@@ -135,7 +143,11 @@ export default function PostViewCategory(props) {
       </CardContent>
 
       <CardContent className={classes.paging}>
-        <Pagination path={path} pageable={data.pageable} />
+        <Pagination 
+          pageable={data.pageable} 
+          path={path} 
+          search={queryString}
+          label={pageLabel}/>
       </CardContent>
 
     </React.Fragment>

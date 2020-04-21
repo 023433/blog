@@ -105,7 +105,7 @@ export default function PostItem(props) {
   const classes = useStyles();
   const post = props.post.post;
   const summary = props.post;
-  const categories = post.category;
+  const categories = summary.category;
   const category = categories[0].category;
 
   const breadcrumbs = (item, component) => {
