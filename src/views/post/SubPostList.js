@@ -69,7 +69,7 @@ export default function SubPostList(props) {
       data.pageNo = no
     }
 
-    let categories = new Array()
+    let categories = []
 
     if(first !== undefined){
       categories.push(first);
