@@ -47,7 +47,6 @@ export default function SubPostList(props) {
 
   const queryParam = props.location.query;
   const queryString = QueryString.parse(props.location.search);
-
   let no = 0;
 
   if(queryParam !== undefined){
@@ -58,8 +57,9 @@ export default function SubPostList(props) {
     no = queryString.page - 1;
   }  
 
+  
   // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(() => getPosts(no), [no]);
+  const [state, dispatch] = ApiAsync(() => getPosts(no), [no, first, second, third, fourth]);
   const { isLoading, data } = state;
 
   async function getPosts(no) {
@@ -69,8 +69,28 @@ export default function SubPostList(props) {
       data.pageNo = no
     }
 
+    let categories = new Array()
+
+    if(first !== undefined){
+      categories.push(first);
+    }
+
+    if(second !== undefined){
+      categories.push(second);
+    }
+
+    if(third !== undefined){
+      categories.push(third);
+    }
+
+    if(fourth !== undefined){
+      categories.push(fourth);
+    }
+
+    data.categories = categories.toString();
+
     const response = await Axios.get(
-      '/posts/summary',
+      '/posts/summary/category',
       {params: data}
     ).catch(error => {
       console.log(error);
