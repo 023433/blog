@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 
 
-export default function PostViewTagItem() {
+export default function PostViewTagItem(props) {
   const useStyles = makeStyles(theme => ({
     button: {
       backgroundColor: theme.palette.tag.backgroundColor,
@@ -14,14 +14,17 @@ export default function PostViewTagItem() {
     },
   }));
 
+  const tag = props.tag;
+  const title = tag.title;
+
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Link to="/tag/tag">
+      <Link to={"/tag/" + title}>
         <Button 
           size="small"
           className={classes.button}>
-            #Tag
+            #{title}
         </Button>
       </Link>
     </React.Fragment>

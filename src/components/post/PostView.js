@@ -112,6 +112,9 @@ export default function PostView() {
   const content = data;
   const categories = content.category;
   const category = categories[0].category;
+  const tag = content.tag;
+
+  console.log(tag);
 
   return (
     <Card elevation={0} className={classes.card}>
@@ -148,9 +151,11 @@ export default function PostView() {
 
       <Divider/>
 
-      <PostViewTag/>
-              
-      <Divider/>
+      {
+        tag.length > 0 
+          ? <React.Fragment><PostViewTag tag={tag}/><Divider/></React.Fragment> 
+          : ""
+      }
 
       <PostViewReply/>
       

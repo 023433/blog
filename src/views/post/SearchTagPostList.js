@@ -8,7 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PaginationBackground from '../../components/post/PaginationBackground';
 
-export default function SearchTagPostList() {
+import Backdrop from '../../components/loading/Backdrop';
+import { ApiAsync, Axios } from '../../service/ApiService';
+import QueryString from "query-string";
+
+export default function SearchTagPostList(props) {
 
   let { item } = useParams();
 
@@ -35,7 +39,55 @@ export default function SearchTagPostList() {
   }));
 
   const classes = useStyles();
+  const queryParam = props.location.query;
+  const queryString = QueryString.parse(props.location.search);
+  let no = 0;
+
+  if(queryParam !== undefined){
+    no = queryParam.page - 1;
+  }  
   
+  if(queryString !== undefined){
+    no = queryString.page - 1;
+  }  
+
+  
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(() => getPosts(item), [item]);
+  const { isLoading, data } = state;
+
+  async function getPosts(item) {
+
+    const response = await Axios.get(
+      '/posts/summary/tag/' + item,
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+      return response;
+    }
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+  
+  let postList;
+
+  if(data != null){
+    data.pageable["totalPages"] = data.totalPages
+
+    postList = data.content.map(post => (
+      <PostItem post={post} key={post.no}/>
+    ))
+  }
+
+  const path = props.location.pathname.replace("/", "");
   return (
     <React.Fragment>
 
@@ -47,13 +99,9 @@ export default function SearchTagPostList() {
           
       </Card>
 
-      <PostItem/>
-      <PostItem/>
-      <PostItem/>
-      <PostItem/>
-      <PostItem/>
+      { postList }
 
-      <PaginationBackground/>
+      <PaginationBackground pageable={data.pageable} path={path}/>
 
     </React.Fragment>
   );
