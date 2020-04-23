@@ -53,13 +53,18 @@ export default function SearchTagPostList(props) {
 
   
   // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(() => getPosts(item), [item]);
+  const [state, dispatch] = ApiAsync(() => getPosts(item, no), [item, no]);
   const { isLoading, data } = state;
 
-  async function getPosts(item) {
+  async function getPosts(item, no) {
+    let data = {}
 
+    if(no !== undefined && no !== "NaN" && no > 0){
+      data.pageNo = no
+    }
     const response = await Axios.get(
       '/posts/summary/tag/' + item,
+      {params: data}
     ).catch(error => {
       console.log(error);
     });
