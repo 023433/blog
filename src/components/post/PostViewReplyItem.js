@@ -12,12 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 
-
 export default function PostViewReplyItem(props) {
 
   const useStyles = makeStyles(theme => ({
     depth: {
-      marginLeft: `${theme.spacing(props.depth)}px`
+      marginLeft: `${theme.spacing(props.item.depthNo)}px`
     },
     avatar: {
       
@@ -29,7 +28,7 @@ export default function PostViewReplyItem(props) {
       color: theme.palette.secondary.textColor
     },
     cardContent: {
-      marginLeft: `${theme.spacing(props.depth + 1)}px`,
+      marginLeft: `${theme.spacing(props.item.depthNo + 1)}px`,
       paddingTop: "0px"
     },
     description: {
@@ -38,6 +37,7 @@ export default function PostViewReplyItem(props) {
   }));
 
   const classes = useStyles(props);
+  const data = props.item;
 
   return (
     <React.Fragment>
@@ -63,14 +63,12 @@ export default function PostViewReplyItem(props) {
           
         }
         title="j님"
-        subheader="2020-03-20 11:22:33"
+        subheader={data.createDate}
       />
 
       <CardContent className={[classes.cardContent, classes.depth].join(" ")}>
         <Typography variant="body2" className={classes.description}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
+          {data.content}
         </Typography>
       </CardContent>
     </React.Fragment>

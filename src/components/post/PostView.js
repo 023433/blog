@@ -114,7 +114,6 @@ export default function PostView() {
   const category = categories[0].category;
   const tag = content.tag;
 
-  console.log(tag);
 
   return (
     <Card elevation={0} className={classes.card}>
@@ -157,7 +156,7 @@ export default function PostView() {
           : ""
       }
 
-      <PostViewReply/>
+      <PostViewReply postNo={post.no}/>
       
 
 

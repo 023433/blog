@@ -1,12 +1,13 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Link } from "react-router-dom";
 
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
-export default function NewCommentItem() {
+export default function NewCommentItem(props) {
 
   const useStyles = makeStyles(theme => ({
     nested: {
@@ -33,14 +34,16 @@ export default function NewCommentItem() {
 
   const classes = useStyles();
 
+  const item = props.item;
+
   return (
-    <ListItem button className={classes.listItem}>
+    <ListItem button className={classes.listItem} {...{ component: Link, to: "/post/" + item.postNo + "?comment=" + item.no }}>
       <ListItemIcon className={classes.listItemIcon}>
         <FiberManualRecordIcon className={classes.icon}/> 
       </ListItemIcon>
 
       <Typography variant="inherit" noWrap className={classes.listItemText}>
-        최근 댓글 최근 댓글 최근 댓글 최근 댓글 최근 댓글 최근 댓글
+        {item.content}
       </Typography>
     </ListItem>
   )

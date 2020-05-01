@@ -43,7 +43,6 @@ export default function TagList() {
     }
   }
 
-  console.log(data);
   if(isLoading){
     return (<Backdrop/>)
   }

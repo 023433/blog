@@ -88,7 +88,7 @@ export default function SearchTagPostList(props) {
     data.pageable["totalPages"] = data.totalPages
 
     postList = data.content.map(post => (
-      <PostItem post={post} key={post.no}/>
+      <PostItem post={post} key={post.postNo}/>
     ))
   }
 

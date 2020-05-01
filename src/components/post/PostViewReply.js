@@ -69,9 +69,10 @@ export default function PostViewReply(props) {
   const queryString = QueryString.parse(location.search);
   const page = queryString[pageLabel];
   delete queryString[pageLabel];
+  const postNo = props.postNo;
 
   // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(() => getComments(page), [page]);
+  const [state, dispatch] = ApiAsync(() => getComments(page), [page, postNo]);
   const { isLoading, data } = state;
 
   async function getComments(page) {
@@ -81,7 +82,7 @@ export default function PostViewReply(props) {
       data.pageNo = page - 1
     }
     const response = await Axios.get(
-      '/posts/newest/' ,
+      '/comments/' + postNo,
       {params: data}
     ).catch(error => {
       console.log(error);
@@ -99,15 +100,22 @@ export default function PostViewReply(props) {
     return (<Backdrop/>)
   }
 
-  data.pageable["totalPages"] = data.totalPages;
+  let commentList;
 
+  if(data != null){
+    data.pageable["totalPages"] = data.totalPages
+
+    commentList = data.content.map(item => (
+      <PostViewReplyItem item={item} key={item.no}/>
+    ))
+  }
 
   return (
     <React.Fragment>
       <CardContent>         
         <Paper elevation={0} className={classes.category}>
           <Typography variant="subtitle1" noWrap component="h2" className={classes.subtitle}>
-            댓글(0)
+            댓글({data.totalElements})
           </Typography>
         </Paper>    
       </CardContent>
@@ -159,11 +167,7 @@ export default function PostViewReply(props) {
         
       </CardContent>
 
-      <PostViewReplyItem depth={0}/>
-      <PostViewReplyItem depth={1}/>
-      <PostViewReplyItem depth={3}/>
-      <PostViewReplyItem depth={4}/>
-      <PostViewReplyItem depth={5}/>
+      {commentList}
 
       <PaginationBackground
         pageable={data.pageable} 
