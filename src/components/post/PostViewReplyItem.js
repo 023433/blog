@@ -39,13 +39,26 @@ export default function PostViewReplyItem(props) {
   const classes = useStyles(props);
   const data = props.item;
 
+  let userName = "";
+
+  if(data.auth == null && data.guest != null){
+    userName = data.guest.name;
+  }
+
+  if(data.guest == null && data.auth != null){
+    userName = data.auth.author;
+  }
+
+  if(userName == ""){
+    userName = "noname";
+  }
+
   return (
     <React.Fragment>
       <CardHeader
         className={classes.depth}
         avatar={
           <Avatar className={classes.avatar}>
-            J
           </Avatar>
         }
         action={
@@ -62,7 +75,7 @@ export default function PostViewReplyItem(props) {
           </React.Fragment>
           
         }
-        title="j님"
+        title={userName + "님"}
         subheader={data.createDate}
       />
 
