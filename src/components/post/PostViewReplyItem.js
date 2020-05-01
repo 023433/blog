@@ -41,15 +41,15 @@ export default function PostViewReplyItem(props) {
 
   let userName = "";
 
-  if(data.auth == null && data.guest != null){
+  if(data.auth === null && data.guest !== null){
     userName = data.guest.name;
   }
 
-  if(data.guest == null && data.auth != null){
+  if(data.guest === null && data.auth !== null){
     userName = data.auth.author;
   }
 
-  if(userName == ""){
+  if(userName === ""){
     userName = "noname";
   }
 
