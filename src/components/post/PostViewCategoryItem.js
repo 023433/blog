@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import Moment from 'react-moment';
 
 export default function PostViewCategoryItem(props) {
 
@@ -56,7 +55,7 @@ export default function PostViewCategoryItem(props) {
         {subject}
       </Typography>
       <Typography variant="caption" noWrap className={classes.date}>
-        <Moment date={createDate} format="YYYY-MM-DD" />
+        {createDate}
       </Typography>
     </ListItem>
   )

@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
-import Moment from 'react-moment';
 import Image from '../svg/image/Image'
 
 export default function PostItem(props) {
@@ -152,7 +151,7 @@ export default function PostItem(props) {
                         {breadcrumbs(category)}
                       </Breadcrumbs>
                       <Typography variant="caption" className={classes.date}>
-                        <Moment date={post.createDate} format="YYYY-MM-DD" />
+                        {post.createDate}
                       </Typography>
                     </Paper>
                     

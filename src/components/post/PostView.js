@@ -18,7 +18,6 @@ import PostViewReply from './PostViewReply';
 import Backdrop from '../../components/loading/Backdrop';
 
 import { ApiAsync, Axios } from '../../service/ApiService';
-import Moment from 'react-moment';
 
 import Image from '../svg/image/Image'
 
@@ -127,7 +126,7 @@ export default function PostView() {
             {breadcrumbs(category)}
           </Breadcrumbs>
           <Typography variant="caption" className={classes.date}>
-            <Moment date={post.createDate} format="YYYY-MM-DD" />
+            {post.createDate}
           </Typography>
         </Paper>
       </CardContent>
