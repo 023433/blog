@@ -8,7 +8,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PaginationBackground from '../../components/post/PaginationBackground';
 
-export default function SearchPostList() {
+import Backdrop from '../../components/loading/Backdrop';
+import { ApiAsync, Axios } from '../../service/ApiService';
+import QueryString from "query-string";
+
+export default function SearchPostList(props) {
 
   let { item } = useParams();
 
@@ -35,7 +39,61 @@ export default function SearchPostList() {
   }));
 
   const classes = useStyles();
+  const queryParam = props.location.query;
+  const queryString = QueryString.parse(props.location.search);
+  let no = 0;
+
+  if(queryParam !== undefined){
+    no = queryParam.page - 1;
+  }  
   
+  if(queryString !== undefined){
+    no = queryString.page - 1;
+  }  
+
+  
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(() => getPosts(item, no), [item, no]);
+  const { isLoading, data } = state;
+
+  async function getPosts(item, no) {
+    let data = {}
+
+    if(no !== undefined && no !== "NaN" && no > 0){
+      data.pageNo = no
+    }
+    const response = await Axios.get(
+      '/posts/summary/search/' + item,
+      {params: data}
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+      return response;
+    }
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+  
+  let postList;
+
+  if(data != null){
+    data.pageable["totalPages"] = data.totalPages
+
+    postList = data.content.map(post => (
+      <PostItem post={post} key={post.postNo}/>
+    ))
+  }
+
+  const path = props.location.pathname.replace("/", "");
+
   return (
     <React.Fragment>
 
@@ -47,9 +105,9 @@ export default function SearchPostList() {
           
       </Card>
 
-      <PostItem/>
+      { postList }
 
-      <PaginationBackground/>
+      <PaginationBackground pageable={data.pageable} path={path}/>
 
     </React.Fragment>
   );

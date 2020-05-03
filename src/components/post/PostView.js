@@ -20,6 +20,7 @@ import Backdrop from '../../components/loading/Backdrop';
 import { ApiAsync, Axios } from '../../service/ApiService';
 
 import Image from '../svg/image/Image'
+import Timestamp from '../../components/date/Timestamp';
 
 export default function PostView() {
   let { id } = useParams();
@@ -126,7 +127,7 @@ export default function PostView() {
             {breadcrumbs(category)}
           </Breadcrumbs>
           <Typography variant="caption" className={classes.date}>
-            {post.createDate}
+            <Timestamp dateTime={post.createDate} />
           </Typography>
         </Paper>
       </CardContent>

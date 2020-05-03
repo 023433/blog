@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Timestamp from '../../components/date/Timestamp';
 
 export default function PostViewCategoryItem(props) {
 
@@ -45,6 +46,7 @@ export default function PostViewCategoryItem(props) {
   const no = post.no;  
   const subject = post.subject;  
   const createDate = post.createDate;  
+  
   return (
     <ListItem button className={classes.listItem} {...{ component: Link, to: "/post/" + no }}>
       <ListItemIcon className={classes.listItemIcon}>
@@ -55,7 +57,7 @@ export default function PostViewCategoryItem(props) {
         {subject}
       </Typography>
       <Typography variant="caption" noWrap className={classes.date}>
-        {createDate}
+        <Timestamp dateTime={createDate} />
       </Typography>
     </ListItem>
   )

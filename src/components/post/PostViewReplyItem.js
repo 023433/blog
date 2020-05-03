@@ -10,6 +10,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import ReplyIcon from '@material-ui/icons/Reply';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Timestamp from '../../components/date/Timestamp';
 
 
 export default function PostViewReplyItem(props) {
@@ -76,7 +77,7 @@ export default function PostViewReplyItem(props) {
           
         }
         title={userName + "님"}
-        subheader={data.createDate}
+        subheader={<Timestamp dateTime={data.createDate} placement="left" />}
       />
 
       <CardContent className={[classes.cardContent, classes.depth].join(" ")}>

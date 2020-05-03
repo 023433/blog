@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 import Image from '../svg/image/Image'
-
+import Timestamp from '../../components/date/Timestamp';
 export default function PostItem(props) {
 
   const useStyles = makeStyles(theme => ({
@@ -151,7 +151,7 @@ export default function PostItem(props) {
                         {breadcrumbs(category)}
                       </Breadcrumbs>
                       <Typography variant="caption" className={classes.date}>
-                        {post.createDate}
+                        <Timestamp dateTime={post.createDate} />
                       </Typography>
                     </Paper>
                     

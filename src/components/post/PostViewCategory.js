@@ -143,11 +143,14 @@ export default function PostViewCategory(props) {
       </CardContent>
 
       <CardContent className={classes.paging}>
-        <Pagination 
-          pageable={data.pageable} 
-          path={path} 
-          search={queryString}
-          label={pageLabel}/>
+      {
+        data.empty ? null
+          : <Pagination
+              pageable={data.pageable} 
+              path={path} 
+              search={queryString}
+              label={pageLabel} />
+      }
       </CardContent>
 
     </React.Fragment>

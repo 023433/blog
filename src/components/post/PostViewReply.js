@@ -169,11 +169,14 @@ export default function PostViewReply(props) {
 
       {commentList}
 
-      <PaginationBackground
-        pageable={data.pageable} 
-        path={path} 
-        search={queryString}
-        label={pageLabel} />
+      {
+        data.empty ? null
+          : <PaginationBackground
+              pageable={data.pageable} 
+              path={path} 
+              search={queryString}
+              label={pageLabel} />
+      }
 
     </React.Fragment>
   );
