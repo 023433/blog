@@ -45,6 +45,9 @@ export default function DropDownMenu(props) {
     list: {
       padding: "0px 4px 0px 2px"
     },
+    firstItem: {
+      padding: "0px 4px 0px 5px"
+    },
     listItem: {
       padding: "0px"
     },
@@ -78,6 +81,11 @@ export default function DropDownMenu(props) {
         <Paper>
           <ClickAwayListener onClickAway={handleClose}>
             <List component="nav" className={classes.list}>
+              <ListItem button className={classes.firstItem} key={category.no}>
+                <ListItem className={classes.listItem} {...{ component: Link, to: "/sub/" + title }}>
+                  <ListItemText primary={title} className={classes.listItemText}/>
+                </ListItem>
+              </ListItem>
               {
                 category.children.map((category) => {
                   category.parentTitle = title;

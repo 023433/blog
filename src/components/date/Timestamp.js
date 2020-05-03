@@ -78,20 +78,16 @@ export default function Timestamp(props) {
 
   const open = Boolean(anchorEl);
   return (
-    <React.Fragment>
-
-      <Typography
-        variant="caption"
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
-      >
-       {
-        open? 
-           getResultDateTime(createDate)
-          :getShowDateTime(createDate)
-       }
-      </Typography>
-      
-    </React.Fragment>
+    <Typography
+      variant="caption"
+      onMouseEnter={handlePopoverOpen}
+      onMouseLeave={handlePopoverClose}
+    >
+      {
+      open? 
+          getResultDateTime(createDate)
+        :getShowDateTime(createDate)
+      }
+    </Typography>
   );
 }
