@@ -11,6 +11,7 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Timestamp from '../../components/date/Timestamp';
+import FormReply from '../../components/form/FormReply';
 
 
 export default function PostViewReplyItem(props) {
@@ -53,6 +54,17 @@ export default function PostViewReplyItem(props) {
   if(userName === ""){
     userName = "noname";
   }
+  const [open, setOpen] = React.useState(false);
+  const [action, setAction] = React.useState();
+
+  const handleClickOpen = (action) => {
+    setOpen(true);
+    setAction(action);
+  };
+
+  const handleClickClose = () => {
+    setOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -64,17 +76,16 @@ export default function PostViewReplyItem(props) {
         }
         action={
           <React.Fragment>
-            <IconButton aria-label="대댓글">
+            <IconButton aria-label="대댓글" onClick={() => handleClickOpen("대댓글")}>
               <ReplyIcon className={classes.icon} />
             </IconButton>
-            <IconButton aria-label="수정">
+            <IconButton aria-label="수정" onClick={() => handleClickOpen("수정")}>
               <CreateIcon className={classes.icon} />
             </IconButton>
             <IconButton aria-label="삭제">
               <DeleteIcon className={classes.icon} />
             </IconButton>
           </React.Fragment>
-          
         }
         title={userName + "님"}
         subheader={<Timestamp dateTime={data.createDate} placement="left" />}
@@ -84,7 +95,14 @@ export default function PostViewReplyItem(props) {
         <Typography variant="body2" className={classes.description}>
           {data.content}
         </Typography>
+        {
+        open ? (
+            <FormReply close={handleClickClose} action={action} data={data}/>
+          ) : null
+        }
       </CardContent>
+
+      
     </React.Fragment>
   );
 };

@@ -18,6 +18,8 @@ import { ApiAsync, Axios } from '../../service/ApiService';
 import { useLocation} from "react-router";
 import QueryString from "query-string";
 
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 const useStyles = makeStyles(theme => ({
   input: {
     border: "none",
@@ -57,7 +59,11 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.button.color,
     textTransform: "none",
     border: theme.palette.button.border,
-  }
+  },
+  label: {
+    color: theme.palette.label.color,
+    fontWeight: "bold"
+  },
 }));
 
 export default function PostViewReply(props) {
@@ -142,6 +148,16 @@ export default function PostViewReply(props) {
               placeholder=" Password"
               type="password"
               fullWidth/>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <Paper variant="outlined" className={classes.paper}>
+            <FormControlLabel
+              className={classes.label}
+              control={<Checkbox color="primary" />}
+              label="Secret"
+            />
           </Paper>
         </Grid>
 

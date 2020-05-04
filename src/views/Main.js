@@ -104,6 +104,9 @@ export default function Main() {
       },
       saveButton: {
         backgroundColor: "#133a70"
+      },
+      label: {
+        color: "#BCBCBC"
       }
     },
     bgColor: '#f2f6fc'
@@ -179,6 +182,9 @@ export default function Main() {
       },
       saveButton: {
         backgroundColor: "#2E2E2E"
+      },
+      label: {
+        color: "#929292"
       }
       
     },
