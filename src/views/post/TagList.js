@@ -5,9 +5,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PostViewTagItem from '../../components/post/PostViewTagItem';
-import Backdrop from '../../components/loading/Backdrop';
 
-import { ApiAsync, Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 export default function TagList() {
 

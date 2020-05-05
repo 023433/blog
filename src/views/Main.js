@@ -6,9 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
 import Signin from './main/Signin';
-import Backdrop from '../components/loading/Backdrop';
 
-import { ApiAsync, Axios } from '../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../service/ApiService';
 
 export default function Main() {
 

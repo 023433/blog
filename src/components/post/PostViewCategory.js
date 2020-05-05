@@ -1,6 +1,5 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Backdrop from '../../components/loading/Backdrop';
 
 import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
@@ -12,7 +11,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import PostViewCategoryItem from './PostViewCategoryItem';
-import { ApiAsync, Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 import { useLocation} from "react-router";
 import QueryString from "query-string";
 

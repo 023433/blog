@@ -5,7 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Backdrop from '../../components/loading/Backdrop';
 
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
@@ -14,7 +13,7 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import PaginationBackground from './PaginationBackground';
 import PostViewReplyItem from './PostViewReplyItem';
-import { ApiAsync, Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop, Cookies } from '../../service/ApiService';
 import { useLocation} from "react-router";
 import QueryString from "query-string";
 
@@ -68,6 +67,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function PostViewReply(props) {
   const classes = useStyles();
+  const authToken = Cookies.get("X_AUTH_TOKEN");
+  let isLogin = false;
+
+  if(authToken !== undefined){
+    isLogin = true;
+  }
 
   const location = useLocation();
   const path = location.pathname.replace("/", "");
@@ -108,7 +113,7 @@ export default function PostViewReply(props) {
 
   let commentList;
 
-  if(data != null){
+  if(data !== null){
     data.pageable["totalPages"] = data.totalPages
 
     commentList = data.content.map(item => (
@@ -128,28 +133,36 @@ export default function PostViewReply(props) {
 
       <CardContent className={classes.cardContent}>         
       <Grid container spacing={1}>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Paper variant="outlined" className={classes.paper}>
-            <Input 
-              disableUnderline={true}
-              className={classes.input}
-              startAdornment={<PersonIcon className={classes.icon}/>}
-              placeholder=" Name"
-              fullWidth/>
-          </Paper>
-        </Grid>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Paper variant="outlined" className={classes.paper}>
-            <Input 
-              disableUnderline={true}
-              className={classes.input}
-              startAdornment={<LockIcon className={classes.icon}/>}
-              placeholder=" Password"
-              type="password"
-              fullWidth/>
-          </Paper>
-        </Grid>
+        {
+          isLogin? null
+          : 
+          <React.Fragment>
+            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+              <Paper variant="outlined" className={classes.paper}>
+                <Input 
+                  disableUnderline={true}
+                  className={classes.input}
+                  startAdornment={<PersonIcon className={classes.icon}/>}
+                  placeholder=" Name"
+                  fullWidth/>
+              </Paper>
+            </Grid>
+    
+            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+              <Paper variant="outlined" className={classes.paper}>
+                <Input 
+                  disableUnderline={true}
+                  className={classes.input}
+                  startAdornment={<LockIcon className={classes.icon}/>}
+                  placeholder=" Password"
+                  type="password"
+                  fullWidth/>
+              </Paper>
+            </Grid>
+          </React.Fragment>
+        }
+        
 
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <Paper variant="outlined" className={classes.paper}>

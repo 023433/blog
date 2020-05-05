@@ -15,9 +15,7 @@ import PostViewCategory from './PostViewCategory';
 import PostViewTag from './PostViewTag';
 import PostViewReply from './PostViewReply';
 
-import Backdrop from '../../components/loading/Backdrop';
-
-import { ApiAsync, Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 import Image from '../svg/image/Image'
 import Timestamp from '../../components/date/Timestamp';

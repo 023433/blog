@@ -5,8 +5,7 @@ import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import CardHeader from './CardHeader';
 import CardContent from './CardContent';
 import NewPostItem from './NewPostItem';
-import { ApiAsync, Axios } from '../../service/ApiService';
-import Backdrop from '../../components/loading/Backdrop';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 
 export default function NewPost() {

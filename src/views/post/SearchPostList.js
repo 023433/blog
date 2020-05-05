@@ -8,8 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import PaginationBackground from '../../components/post/PaginationBackground';
 
-import Backdrop from '../../components/loading/Backdrop';
-import { ApiAsync, Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 import QueryString from "query-string";
 
 export default function SearchPostList(props) {

@@ -5,8 +5,7 @@ import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import CardHeader from './CardHeader';
 import CardContent from './CardContent';
 import NewCommentItem from './NewCommentItem';
-import { ApiAsync, Axios } from '../../service/ApiService';
-import Backdrop from '../../components/loading/Backdrop';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 export default function NewComment() {
   // eslint-disable-next-line

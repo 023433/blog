@@ -1,4 +1,5 @@
 import React from 'react';
+import { Reply } from '../form/enum/Reply';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
@@ -76,10 +77,10 @@ export default function PostViewReplyItem(props) {
         }
         action={
           <React.Fragment>
-            <IconButton aria-label="대댓글" onClick={() => handleClickOpen("대댓글")}>
+            <IconButton aria-label={Reply.Reply} onClick={() => handleClickOpen(Reply.Reply)}>
               <ReplyIcon className={classes.icon} />
             </IconButton>
-            <IconButton aria-label="수정" onClick={() => handleClickOpen("수정")}>
+            <IconButton aria-label={Reply.Modify} onClick={() => handleClickOpen(Reply.Modify)}>
               <CreateIcon className={classes.icon} />
             </IconButton>
             <IconButton aria-label="삭제">
@@ -87,7 +88,7 @@ export default function PostViewReplyItem(props) {
             </IconButton>
           </React.Fragment>
         }
-        title={userName + "님"}
+        title={userName}
         subheader={<Timestamp dateTime={data.createDate} placement="left" />}
       />
 

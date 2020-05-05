@@ -26,8 +26,7 @@ export default function Warning(props) {
               <CloseIcon fontSize="inherit" />
             </IconButton>
         }>
-        <AlertTitle>Error</AlertTitle>
-        {props.message}
+        <AlertTitle>{props.message}</AlertTitle>
       </Alert>
     </Dialog>
   );
