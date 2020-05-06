@@ -13,12 +13,14 @@ import LockIcon from '@material-ui/icons/Lock';
 
 import PaginationBackground from './PaginationBackground';
 import PostViewReplyItem from './PostViewReplyItem';
-import { ApiAsync, Axios, Backdrop, Cookies } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop, qs, Cookies } from '../../service/ApiService';
 import { useLocation} from "react-router";
 import QueryString from "query-string";
 
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Warning from '../../components/alert/Warning';
+
 const useStyles = makeStyles(theme => ({
   input: {
     border: "none",
@@ -67,6 +69,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function PostViewReply(props) {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+
   const authToken = Cookies.get("X_AUTH_TOKEN");
   let isLogin = false;
 
@@ -107,9 +113,67 @@ export default function PostViewReply(props) {
       return response;
     }
   }
+
   if(isLoading){
     return (<Backdrop/>)
   }
+
+  
+
+  const submit = async () => {
+    let response = null;
+    const docName = document.getElementById('name');
+    const name = docName? docName.value : "";
+    const docPassword = document.getElementById('password');
+    const password = docPassword? docPassword.value : "";
+    const content = document.getElementById('content').value;
+    const secret = document.getElementById('secret').checked;
+    const param = qs.stringify({ postNo, name, password, secret, content });
+
+    if(docName !== null && docName !== undefined){
+      if(name === undefined || name === ""){
+        setOpen(true);
+        setMessage("이름을 입력하세요");
+        return;
+      }
+    }
+
+    if(docPassword !== null && docPassword !== undefined){
+      if(password === undefined || password === ""){
+        setOpen(true);
+        setMessage("비밀번호를 입력하세요");
+        return;
+      }
+    }
+
+    response = await Axios.post(
+      '/comment',
+      param
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+      dispatch();
+
+      if(docName !== null && docName !== undefined){
+        docName.value = "";
+      }
+  
+      if(docPassword !== null && docPassword !== undefined){
+        docPassword.value = "";
+      }
+
+      document.getElementById('secret').checked = false;
+      document.getElementById('content').value = "";
+    }
+
+  }
+
 
   let commentList;
 
@@ -117,12 +181,19 @@ export default function PostViewReply(props) {
     data.pageable["totalPages"] = data.totalPages
 
     commentList = data.content.map(item => (
-      <PostViewReplyItem item={item} key={item.no}/>
+      <PostViewReplyItem item={item} key={item.no} refresh={dispatch}/>
     ))
   }
 
   return (
     <React.Fragment>
+      <Warning 
+        open={open} 
+        onClose={() => {
+          setOpen(false);
+          setMessage("");
+        }} 
+        message={message} />
       <CardContent>         
         <Paper elevation={0} className={classes.category}>
           <Typography variant="subtitle1" noWrap component="h2" className={classes.subtitle}>
@@ -145,6 +216,7 @@ export default function PostViewReply(props) {
                   className={classes.input}
                   startAdornment={<PersonIcon className={classes.icon}/>}
                   placeholder=" Name"
+                  id="name"
                   fullWidth/>
               </Paper>
             </Grid>
@@ -157,6 +229,7 @@ export default function PostViewReply(props) {
                   startAdornment={<LockIcon className={classes.icon}/>}
                   placeholder=" Password"
                   type="password"
+                  id="password"
                   fullWidth/>
               </Paper>
             </Grid>
@@ -168,7 +241,7 @@ export default function PostViewReply(props) {
           <Paper variant="outlined" className={classes.paper}>
             <FormControlLabel
               className={classes.label}
-              control={<Checkbox color="primary" />}
+              control={<Checkbox color="primary" id="secret" />}
               label="Secret"
             />
           </Paper>
@@ -182,12 +255,19 @@ export default function PostViewReply(props) {
               multiline
               placeholder="Comment"
               rows="6"
+              id="content"
               variant="outlined"/>
           </Paper>
         </Grid>
 
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-          <Button className={classes.button} fullWidth variant="contained" color="primary" disableElevation>
+          <Button 
+            className={classes.button}
+            fullWidth 
+            variant="contained" 
+            color="primary" 
+            disableElevation
+            onClick={submit}>
             등록
           </Button>
         </Grid>

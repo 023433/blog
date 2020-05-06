@@ -52,16 +52,15 @@ export default function FormReply(props) {
   const submit = async (action) => {
     let response = null;
     const no = props.data.no;
-    const docName = document.getElementById('name');
+    const docName = document.getElementById('formName');
     const name = docName? docName.value : "";
-    const docPassword = document.getElementById('password');
+    const docPassword = document.getElementById('formPassword');
     const password = docPassword? docPassword.value : "";
-    const content = document.getElementById('content').value;
-    const secret = document.getElementById('secret').checked;
+    const content = document.getElementById('formContent').value;
+    const secret = document.getElementById('formSecret').checked;
     const param = qs.stringify({ no, name, password, secret, content });
 
     if(docName !== null && docName !== undefined){
-      console.log("name : " + name);
       if(name === undefined || name === ""){
         setOpen(true);
         setMessage("이름을 입력하세요");
@@ -76,13 +75,6 @@ export default function FormReply(props) {
         return;
       }
     }
-
-    console.log(no);
-    console.log(name);
-    console.log(password);
-    console.log(content);
-    console.log(secret);
-    console.log(param);
 
     if(action === Reply.Reply){
       response = await Axios.post(
@@ -102,7 +94,14 @@ export default function FormReply(props) {
       });
     }
 
-    console.log(response);
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      props.refresh();
+      props.close();
+    }
 
   }
 
@@ -117,7 +116,7 @@ export default function FormReply(props) {
 
   const action = props.action;
   let content = "";
-  let secret = true;
+  let secret = false;
   let name = "";
 
   if(action === Reply.Reply){
@@ -133,7 +132,7 @@ export default function FormReply(props) {
 
     name = tempGuest? tempGuest.name : "";
   }
-  
+
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("false");
 
@@ -175,7 +174,7 @@ export default function FormReply(props) {
                   className={classes.input}
                   startAdornment={<PersonIcon className={classes.icon}/>}
                   placeholder=" Name"
-                  id="name"
+                  id="formName"
                   defaultValue={name}
                   fullWidth/>
               </Paper>
@@ -189,7 +188,7 @@ export default function FormReply(props) {
                   startAdornment={<LockIcon className={classes.icon}/>}
                   placeholder=" Password"
                   type="password"
-                  id="password"
+                  id="formPassword"
                   fullWidth/>
               </Paper>
             </Grid>
@@ -200,7 +199,7 @@ export default function FormReply(props) {
           <Paper variant="outlined" className={classes.paper}>
             <FormControlLabel
               className={classes.label}
-              control={<Checkbox color="primary" id="secret" defaultChecked={secret} />}
+              control={<Checkbox color="primary" id="formSecret" defaultChecked={secret} />}
               label="Secret"              
             />
           </Paper>
@@ -215,7 +214,7 @@ export default function FormReply(props) {
               placeholder="Comment"
               rows="6"
               variant="outlined"
-              id="content"
+              id="formContent"
               defaultValue={content}/>
           </Paper>
         </Grid>

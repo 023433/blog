@@ -6,7 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import Avatar from '@material-ui/core/Avatar';
-import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
 import ReplyIcon from '@material-ui/icons/Reply';
 import IconButton from '@material-ui/core/IconButton';
@@ -67,6 +66,8 @@ export default function PostViewReplyItem(props) {
     setOpen(false);
   };
 
+  const isPublish = data.publish;
+
   return (
     <React.Fragment>
       <CardHeader
@@ -76,17 +77,16 @@ export default function PostViewReplyItem(props) {
           </Avatar>
         }
         action={
-          <React.Fragment>
-            <IconButton aria-label={Reply.Reply} onClick={() => handleClickOpen(Reply.Reply)}>
-              <ReplyIcon className={classes.icon} />
-            </IconButton>
-            <IconButton aria-label={Reply.Modify} onClick={() => handleClickOpen(Reply.Modify)}>
-              <CreateIcon className={classes.icon} />
-            </IconButton>
-            <IconButton aria-label="삭제">
-              <DeleteIcon className={classes.icon} />
-            </IconButton>
-          </React.Fragment>
+          isPublish?
+            <React.Fragment>
+              <IconButton aria-label={Reply.Reply} onClick={() => handleClickOpen(Reply.Reply)}>
+                <ReplyIcon className={classes.icon} />
+              </IconButton>
+              <IconButton aria-label={Reply.Modify} onClick={() => handleClickOpen(Reply.Modify)}>
+                <CreateIcon className={classes.icon} />
+              </IconButton>
+            </React.Fragment>
+            :null
         }
         title={userName}
         subheader={<Timestamp dateTime={data.createDate} placement="left" />}
@@ -98,7 +98,7 @@ export default function PostViewReplyItem(props) {
         </Typography>
         {
         open ? (
-            <FormReply close={handleClickClose} action={action} data={data}/>
+            <FormReply close={handleClickClose} action={action} data={data} refresh={props.refresh}/>
           ) : null
         }
       </CardContent>
