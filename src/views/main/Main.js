@@ -7,6 +7,7 @@ import MainPostList from '../post/MainPostList';
 import SubPostList from '../post/SubPostList';
 import SearchPostList from '../post/SearchPostList';
 import SearchTagPostList from '../post/SearchTagPostList';
+import DayPostList from '../post/DayPostList';
 import TagList from '../post/TagList';
 
 
@@ -41,6 +42,7 @@ export default function Main(props) {
             <Route path="/sub/:first/:second" component={(props) => <SubPostList {...props} />} />
             <Route path="/sub/:first" component={(props) => <SubPostList {...props} />} />
             <Route path="/search/:item" component={(props) => <SearchPostList {...props} />} />
+            <Route path="/day/:item" component={(props) => <DayPostList {...props} />} />
             <Route path="/tag/:item" component={(props) => <SearchTagPostList {...props} />} />
             <Route path="/tag" component={(props) => <TagList {...props} />} />
             <Route path="/post/:id" component={PostView} />

@@ -168,7 +168,6 @@ export default function PostViewReply(props) {
         docPassword.value = "";
       }
 
-      document.getElementById('secret').checked = false;
       document.getElementById('content').value = "";
     }
 

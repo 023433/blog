@@ -98,7 +98,7 @@ export default function SearchTagPostList(props) {
       <Card elevation={0} className={classes.card}>
 
         <CardContent className={classes.content}>             
-          <Typography variant="h6" component="h2" className={classes.title}>{item}</Typography>
+          <Typography variant="h6" component="h2" className={classes.title}>{`${item} (${data.totalElements})`}</Typography>
         </CardContent>
           
       </Card>

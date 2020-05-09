@@ -1,5 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useHistory } from 'react-router-dom';
 
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
 
@@ -14,8 +15,11 @@ import Typography from '@material-ui/core/Typography';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 export default function MenuCalendar() {
+  const history = useHistory();
+
   const useStyles = makeStyles(theme => ({
     calendar: {
       width: "100%",
@@ -64,7 +68,76 @@ export default function MenuCalendar() {
 
   const classes = useStyles();
 
-  let writeDate = [1, 10, 20, 11, 15];
+
+  const goToPage = (value) => {
+    const year = value.getFullYear();
+    let month = value.getMonth() + 1;
+    let day = value.getDate();
+
+    if(month < 10){
+      month = `0${month}`;
+    }
+
+    if(day < 10){
+      day = `0${day}`;
+    }
+
+    const result = `${year}-${month}-${day}`;
+
+    history.push("/day/" + result);
+  }
+
+  const [activeDate, setActiveDate] = React.useState(getActiveDate(new Date()));
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(() => getPostCount(activeDate), [activeDate]);
+  const { isLoading, data } = state;
+
+  async function getPostCount(date) {
+
+    const response = await Axios.get(
+      '/post/count/' + date
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+      return response;
+    }
+
+  }
+  
+  const changeActiveDate = (value) => {
+    setActiveDate(getActiveDate(value.activeStartDate));
+  }
+
+  function getActiveDate(activeDate){
+    const year = activeDate.getFullYear();
+    let month = activeDate.getMonth() + 1;
+
+    if(month < 10){
+      month = `0${month}`;
+    }
+
+    return `${year}-${month}`;
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+
+  let writeDate = [];
+
+  data.map(value => {
+    const createDate = new Date(value.createDate);
+    
+    writeDate.push(createDate.getDate());
+    return null;
+  })
 
   const initDate = (param) => {
     let weekday = param.date.getDay();
@@ -107,6 +180,9 @@ export default function MenuCalendar() {
             }
             className={classes.calendar}
             calendarType={"US"}
+            onClickDay={(value) => {goToPage(value);}}
+            onActiveStartDateChange={(activeStartDate) => {changeActiveDate(activeStartDate);}}
+
             />
         </React.Fragment>
       }/>

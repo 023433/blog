@@ -11,7 +11,7 @@ import PaginationBackground from '../../components/post/PaginationBackground';
 import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 import QueryString from "query-string";
 
-export default function SearchPostList(props) {
+export default function DayPostList(props) {
 
   let { item } = useParams();
 
@@ -62,7 +62,7 @@ export default function SearchPostList(props) {
       data.pageNo = no
     }
     const response = await Axios.get(
-      '/posts/summary/search/' + item,
+      '/posts/summary/day/' + item,
       {params: data}
     ).catch(error => {
       console.log(error);
