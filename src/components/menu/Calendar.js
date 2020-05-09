@@ -74,6 +74,10 @@ export default function MenuCalendar() {
     let month = value.getMonth() + 1;
     let day = value.getDate();
 
+    if(!writeDate.includes(day)){
+      return;
+    }
+
     if(month < 10){
       month = `0${month}`;
     }
@@ -92,6 +96,8 @@ export default function MenuCalendar() {
   // eslint-disable-next-line
   const [state, dispatch] = ApiAsync(() => getPostCount(activeDate), [activeDate]);
   const { isLoading, data } = state;
+
+  let writeDate = [];
 
   async function getPostCount(date) {
 
@@ -129,8 +135,6 @@ export default function MenuCalendar() {
   if(isLoading){
     return (<Backdrop/>)
   }
-
-  let writeDate = [];
 
   data.map(value => {
     const createDate = new Date(value.createDate);

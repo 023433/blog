@@ -99,8 +99,13 @@ export default function FormReply(props) {
     }
 
     if(response.status === 200){
+      if(response.data === undefined || response.data === ""){
+        setOpen(true);
+        setMessage("비밀번호를 확인하세요");
+        return;
+      }
       props.refresh();
-      props.close();
+      props.close(response.data);
     }
 
   }
@@ -182,14 +187,17 @@ export default function FormReply(props) {
     
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Paper variant="outlined" className={classes.paper}>
-                <Input 
-                  disableUnderline={true}
-                  className={classes.input}
-                  startAdornment={<LockIcon className={classes.icon}/>}
-                  placeholder=" Password"
-                  type="password"
-                  id="formPassword"
-                  fullWidth/>
+                <form>
+                  <Input 
+                    disableUnderline={true}
+                    className={classes.input}
+                    startAdornment={<LockIcon className={classes.icon}/>}
+                    placeholder=" Password"
+                    type="password"
+                    id="formPassword"
+                    fullWidth/>
+                </form>
+               
               </Paper>
             </Grid>
           </React.Fragment>

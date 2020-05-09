@@ -106,6 +106,13 @@ export default function Main() {
       },
       label: {
         color: "#BCBCBC"
+      },
+      confirm: {
+        button: {
+          border: "1px solid transparent",
+          bgColor: "transparent",
+          color: "#616161"
+        },
       }
     },
     bgColor: '#f2f6fc'
@@ -184,6 +191,13 @@ export default function Main() {
       },
       label: {
         color: "#929292"
+      },
+      confirm: {
+        button: {
+          border: "1px solid transparent",
+          bgColor: "transparent",
+          color: "#D8D8D8"
+        },
       }
       
     },

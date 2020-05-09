@@ -222,14 +222,16 @@ export default function PostViewReply(props) {
     
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Paper variant="outlined" className={classes.paper}>
-                <Input 
-                  disableUnderline={true}
-                  className={classes.input}
-                  startAdornment={<LockIcon className={classes.icon}/>}
-                  placeholder=" Password"
-                  type="password"
-                  id="password"
-                  fullWidth/>
+                <form>
+                  <Input 
+                    disableUnderline={true}
+                    className={classes.input}
+                    startAdornment={<LockIcon className={classes.icon}/>}
+                    placeholder=" Password"
+                    type="password"
+                    id="password"
+                    fullWidth/>
+                </form>
               </Paper>
             </Grid>
           </React.Fragment>
