@@ -164,7 +164,7 @@ export default function PostViewReplyItem(props) {
     if( !isSecret ){
       return;
     }
-    
+
     if(isLogin){
       const response = await onConfirmApi();
 
@@ -180,6 +180,7 @@ export default function PostViewReplyItem(props) {
         }
         setItem(response.data);
         setContent(response.data.content);
+        setSecret(false);
         return;
       }else{
         return;
@@ -233,7 +234,11 @@ export default function PostViewReplyItem(props) {
           variant="body2" 
           onClick={commentClickOpen}
           className={classes.description}>
-          {content}
+          {
+            content.split('\n').map( line => {
+              return (<React.Fragment>{line}<br/></React.Fragment>)
+            })
+          }
         </Typography>
         {
         openForm ? (
