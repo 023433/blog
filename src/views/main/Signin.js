@@ -14,7 +14,7 @@ import Container from '@material-ui/core/Container';
 
 import { Axios, qs, Cookies } from '../../service/ApiService';
 import  Warning from '../../components/alert/Warning';
-
+import { Cookie } from '../../service/api/enum/Cookie';
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
@@ -62,7 +62,7 @@ export default function SignIn() {
     }
     
     if(response.status === 200){
-      Cookies.set("X_AUTH_TOKEN", response.data);
+      Cookies.set(Cookie.STR_TOKEN, response.data);
       history.push("/");
     }
 

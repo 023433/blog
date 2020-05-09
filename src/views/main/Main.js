@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
@@ -17,6 +18,9 @@ import RightMenu from '../../components/menu/RightMenu';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
+import { Cookies } from '../../service/ApiService';
+import { Cookie } from '../../service/api/enum/Cookie';
+
 const useStyles = makeStyles(theme => ({
     container: {
       paddingLeft: 0,
@@ -29,6 +33,13 @@ const useStyles = makeStyles(theme => ({
 export default function Main(props) {
   const classes = useStyles();
   const category = props.category;
+  const history = useHistory();
+
+  const signout = () => {
+    console.log("signout");
+    Cookies.remove(Cookie.STR_TOKEN);
+    history.push("/");
+  }
   return (
     <Container maxWidth="lg" className={classes.container}>
       
@@ -46,6 +57,7 @@ export default function Main(props) {
             <Route path="/tag/:item" component={(props) => <SearchTagPostList {...props} />} />
             <Route path="/tag" component={(props) => <TagList {...props} />} />
             <Route path="/post/:id" component={PostView} />
+            <Route path="/signout" render={signout}/>
           </Switch>
         </Grid>
 
