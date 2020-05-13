@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
 import Signin from './main/Signin';
+import WritePost from './main/WritePost';
 
 import { ApiAsync, Axios, Backdrop } from '../service/ApiService';
 
@@ -238,6 +239,7 @@ export default function Main() {
           
           <Switch>
             <Route exact path="/signin"><Signin/></Route>
+            <Route path="/write"><WritePost/></Route>
             <Route path="/*"><MainContent category={data}/></Route>
           </Switch>
           
