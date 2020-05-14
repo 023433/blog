@@ -2,13 +2,13 @@ import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { ApiAsync } from '../../service/ApiService';
-import Divider from '@material-ui/core/Divider';
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Divider from '@material-ui/core/Divider';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -16,10 +16,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import WriteMenu from '../../components/menu/write/WriteMenu';
 
-
+import './WritePost.css';
 
 export default function WritePost() {
-
+//.MuiInput-underline:before
   const useStyles = makeStyles(theme => ({
     container: {
       paddingLeft: 0,
@@ -76,14 +76,20 @@ export default function WritePost() {
                 variant="filled"/>
             </Paper>
 
-            <Divider />
+            <CKEditor editor={ ClassicEditor } />
 
-            <Paper elevation={0} className={classes.editor}>
-              <CKEditor editor={ ClassicEditor } />
+            <Divider/>
+
+            <Paper elevation={0} className={classes.paper}>
+              <InputBase 
+                className={classes.input}
+                id="subject" 
+                placeholder="태그를 입력하세요."
+                fullWidth 
+                variant="filled"/>
             </Paper>
 
-
-            </Card>
+          </Card>
 
         </Grid>
 

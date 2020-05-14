@@ -5,6 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
 import Category from './Category';
+import Thumbnail from './Thumbnail';
+import MainImage from './MainImage';
+import Publish from './Publish';
+import Save from './Save';
 
 export default function WriteMenu(props) {
 
@@ -24,8 +28,21 @@ export default function WriteMenu(props) {
   return (
     <Grid item className={classes.grid}>
       <Card elevation={0} className={classes.card}>
+        <Save/>
+      </Card>
+      <Card elevation={0} className={classes.card}>
         <Category/>
       </Card>
+      <Card elevation={0} className={classes.card}>
+        <Thumbnail/>
+      </Card>
+      <Card elevation={0} className={classes.card}>
+        <MainImage/>
+      </Card>
+      <Card elevation={0} className={classes.card}>
+        <Publish/>
+      </Card>
+      
     </Grid>
   );
 };

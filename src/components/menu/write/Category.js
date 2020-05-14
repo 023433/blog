@@ -4,7 +4,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 
 import CardHeader from '../CardHeader';
-import CardContent from '../CardContent';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -28,44 +27,55 @@ export default function Category(props) {
       color: theme.palette.secondary.textColor
     },
     paper: {
-      padding: `${theme.spacing(1)}px`,
+      paddingLeft: `${theme.spacing(2)}px`,
+      paddingRight: `${theme.spacing(2)}px`,
+      paddingBottom: `${theme.spacing(2)}px`,
     },
+    input: {
+      "& .MuiInput-underline:before": {
+        borderBottom: "none",
+      },
+      "& .MuiInput-underline:after": {
+        borderBottom: "none",
+      },
+      "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+        borderBottom: "none",
+      },
+    }
 
   }));
 
-  // eslint-disable-next-line
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <CardHeader title="카테고리" icon={ <AccountTreeIcon/>}/>
-      <CardContent content={
-        <React.Fragment>
-          <Paper elevation={0} className={classes.paper}>
-            <Autocomplete
-              multiple
-              id="category"
-              options={top100Films}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option.title}
-              renderOption={(option, { selected }) => (
-                <React.Fragment>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.title}
-                </React.Fragment>
-              )}
-              renderInput={(params) => (
-                <TextField {...params} variant="standard" placeholder="카테고리를 선택하세요." />
-              )}
-            />
-          </Paper>
-        </React.Fragment>
-      }/>
+      <Paper elevation={0} className={classes.paper}>
+        <Autocomplete
+          multiple
+          id="category"
+          size="small"
+          limitTags={2}
+          options={top100Films}
+          disableCloseOnSelect
+          getOptionLabel={(option) => option.title}
+          renderOption={(option, { selected }) => (
+            <React.Fragment>
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={selected}
+              />
+              {option.title}
+            </React.Fragment>
+          )}
+          renderInput={(params) => (
+            <TextField {...params} className={classes.input} variant="standard" placeholder="카테고리를 선택하세요." />
+          )}
+        />
+      </Paper>
+      
     </React.Fragment>
   )
 }
