@@ -5,7 +5,7 @@
     background: none !important;
 }
 .ck.ck-editor__main>.ck-editor__editable{
-    min-height: 500px;
+    min-height: 630px;
 }
 .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused){
     border-color: transparent !important;
