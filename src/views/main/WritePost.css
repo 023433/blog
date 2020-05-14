@@ -1,17 +1,17 @@
 .ck.ck-toolbar{
-    border: none;
+    border: none !important;
 }
 .ck.ck-toolbar .ck.ck-toolbar__separator{
-    background: none;
+    background: none !important;
 }
 .ck.ck-editor__main>.ck-editor__editable{
     min-height: 500px;
 }
 .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused){
-    border-color: transparent;
+    border-color: transparent !important;
 }
 
 .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused{
-    border: transparent;
-    box-shadow: none;
+    border: transparent !important;
+    box-shadow: none !important;
 }
