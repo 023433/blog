@@ -45,7 +45,26 @@ export default function Category(props) {
 
   }));
 
+  const [no, setNo] = React.useState([]);
+
   const classes = useStyles();
+
+  const change = (value) => {
+    const idx = value.length - 1
+
+    if(idx < 0){
+      setNo([]);
+      return
+    }
+
+    const isContains = no.some(val => val == value[idx].year);
+
+    if(isContains){
+      setNo((chips) => chips.filter((chip) => chip !== value[idx].year));
+    }else{
+      setNo((chips) => chips.concat(value[idx].year));
+    }
+  }
 
   return (
     <React.Fragment>
@@ -58,6 +77,8 @@ export default function Category(props) {
           limitTags={2}
           options={top100Films}
           disableCloseOnSelect
+          onChange={(event, value) => change(value)}
+          
           getOptionLabel={(option) => option.title}
           renderOption={(option, { selected }) => (
             <React.Fragment>
@@ -70,12 +91,18 @@ export default function Category(props) {
               {option.title}
             </React.Fragment>
           )}
-          renderInput={(params) => (
-            <TextField {...params} className={classes.input} variant="standard" placeholder="카테고리를 선택하세요." />
-          )}
+          renderInput={(params) => 
+            <TextField 
+              {...params} 
+              className={classes.input} 
+              placeholder="카테고리를 선택하세요." />
+          }
         />
       </Paper>
-      
+      <input
+        type="hidden" 
+        value={no}
+        name="category" />
     </React.Fragment>
   )
 }

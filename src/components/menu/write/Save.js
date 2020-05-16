@@ -29,9 +29,8 @@ export default function Save(props) {
     <React.Fragment>
       <CardHeader title="저장" icon={ <SaveAltIcon/>}/>
       <Paper elevation={0} className={classes.paper}>
-        <Button fullWidth={true} className={classes.button}>저장</Button>
+        <Button fullWidth={true} type="submit" className={classes.button}>저장</Button>
       </Paper>
-      
     </React.Fragment>
   )
 }

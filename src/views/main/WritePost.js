@@ -1,7 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { ApiAsync } from '../../service/ApiService';
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
@@ -16,6 +15,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import Chip from '@material-ui/core/Chip';
 import WriteMenu from '../../components/menu/write/WriteMenu';
+import { Axios } from '../../service/ApiService';
 
 import './WritePost.css';
 
@@ -53,16 +53,11 @@ export default function WritePost() {
 
   // eslint-disable-next-line
   const classes = useStyles();
-  // eslint-disable-next-line
-  const [state, dispatch] = ApiAsync(getTags, []);
-
-  async function getTags() {
-
-  }
 
   const [chipData, setChipData] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
+  const [content, setContent] = React.useState("");
 
 
   const handleDelete = (chipToDelete) => () => {
@@ -70,7 +65,10 @@ export default function WritePost() {
   };
 
   const handleInsert = (event) => {
+    console.log("handleInsert")
     if (event.key === 'Enter') {
+      event.preventDefault();
+
       const tag = document.getElementById('tag');
       const label = tag.value;
       tag.value = "";
@@ -89,69 +87,103 @@ export default function WritePost() {
     setOpen(false);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = new FormData(event.target);
+
+    const resChip = chipData.map((value, index) => value.label)
+
+    data.append("chipData", resChip);
+    data.append("content", content);
+
+    const response = await Axios.post(
+      '/post',
+      data
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+    
+    if(response.status === 200){
+    }
+
+  }
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Warning open={open} onClose={handleClose} message={message} />
-      
-      <Grid container spacing={1}>
 
-        <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
+      <form onSubmit={handleSubmit}>
+        
+        <Grid container spacing={1}>
 
-          <Card elevation={0} className={classes.card}>
+          <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
 
-            <Paper elevation={0} className={classes.paper}>
-              <InputBase 
-                className={classes.input}
-                id="subject" 
-                placeholder="제목을 입력하세요."
-                fullWidth 
-                variant="filled"/>
-            </Paper>
+            <Card elevation={0} className={classes.card}>
 
-            <CKEditor editor={ ClassicEditor } />
+              <Paper elevation={0} className={classes.paper}>
+                <InputBase 
+                  className={classes.input}
+                  id="subject" 
+                  name="subject"
+                  placeholder="제목을 입력하세요."
+                  fullWidth 
+                  variant="filled"/>
+              </Paper>
 
-            <Divider/>
+              <CKEditor 
+                editor={ ClassicEditor }
+                onChange={ ( event, editor ) => {
+                  setContent(editor.getData());
+                } } />
 
-            <Paper elevation={0} className={classes.paper}>
+              <Divider/>
 
-              {
-                chipData.map((data) => {
-                  return (
-                      <Chip
-                        key={data.key}
-                        label={data.label}
-                        onDelete={handleDelete(data)}
-                        className={classes.chip}
-                      />
-                  );
-                })
-              }
+              <Paper elevation={0} className={classes.paper}>
 
-            </Paper>
+                {
+                  chipData.map((data) => {
+                    return (
+                        <Chip
+                          key={data.key}
+                          label={data.label}
+                          onDelete={handleDelete(data)}
+                          className={classes.chip}
+                        />
+                    );
+                  })
+                }
+
+              </Paper>
 
 
-            <Paper elevation={0} className={classes.paper}>
-              <InputBase 
-                className={classes.input}
-                id="tag" 
-                placeholder="태그를 입력하세요."
-                fullWidth 
-                onKeyPress={(event) =>{
-                  handleInsert(event)
-                }}
-  
-                variant="filled"/>
-            </Paper>
+              <Paper elevation={0} className={classes.paper}>
+                <InputBase 
+                  className={classes.input}
+                  id="tag" 
+                  placeholder="태그를 입력하세요."
+                  fullWidth 
+                  onKeyPress={(event) =>{
+                    handleInsert(event)
+                  }}
+    
+                  variant="filled"/>
+              </Paper>
 
-          </Card>
+            </Card>
 
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+            <WriteMenu/>
+          </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-          <WriteMenu/>
-        </Grid>
-      </Grid>
+      </form>
       
     </Container>
 

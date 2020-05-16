@@ -50,7 +50,7 @@ export default function Thumbnail(props) {
   }));
 
   const classes = useStyles();
-  const [imageSrc, setImageSrc] = React.useState("");
+  const [imageSrc, setImageSrc] = React.useState("/");
 
   const submit = async () => {
 

@@ -51,7 +51,7 @@ export default function MainImage(props) {
 
   const classes = useStyles();
 
-  const [imageSrc, setImageSrc] = React.useState("");
+  const [imageSrc, setImageSrc] = React.useState("/");
 
   const submit = async () => {
 
