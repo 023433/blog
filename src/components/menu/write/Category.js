@@ -137,7 +137,8 @@ export default function Category(props) {
 let res = [];
 
 const initCategory = (data) =>{
-
+  res = [];
+  
   if(data === null){
     return data;
   }
