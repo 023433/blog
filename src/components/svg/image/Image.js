@@ -50,7 +50,15 @@ export default function Images(props) {
 
   }
 
-  const url = props.url;
+  let imgUrl = "";
+
+  if(process.env.NODE_ENV === "production"){
+    imgUrl = "https://img.devj.io";
+  }else{
+    imgUrl = "http://localhost";
+  }
+
+  const url = imgUrl + props.url;
 
   imageExists(url)
 

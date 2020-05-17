@@ -62,6 +62,7 @@ export default function SignIn() {
     if(response.status === 200){
       Cookies.set(Cookie.STR_TOKEN, response.data);
       history.push("/");
+      window.location.reload();
     }
 
   }

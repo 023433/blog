@@ -1,5 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { useHistory } from 'react-router-dom';
 
 import InputBase from '@material-ui/core/InputBase';
 import Paper from '@material-ui/core/Paper';
@@ -15,12 +16,13 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import Chip from '@material-ui/core/Chip';
 import WriteMenu from '../../components/menu/write/WriteMenu';
-import { Axios } from '../../service/ApiService';
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
+import Alert from '../../components/alert/Alert';
 
 import './WritePost.css';
 
 export default function WritePost() {
-//.MuiInput-underline:before
+
   const useStyles = makeStyles(theme => ({
     container: {
       paddingLeft: 0,
@@ -53,6 +55,7 @@ export default function WritePost() {
 
   // eslint-disable-next-line
   const classes = useStyles();
+  const history = useHistory();
 
   const [chipData, setChipData] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -60,12 +63,50 @@ export default function WritePost() {
   const [content, setContent] = React.useState("");
 
 
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(authValidate, []);
+  const { isLoading, data } = state;
+
+  async function authValidate() {
+    const response = await Axios.get(
+      '/auth/validate/admin',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+
+
+  const onConfirmSuccess = () =>{
+    history.push("/");
+  }
+
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+
+  if(data === null){
+    return (
+      <Alert
+        open={true} 
+        message="권한이 없습니다."
+        onClose={onConfirmSuccess} 
+        onSuccess={onConfirmSuccess}/>
+    )
+  }
+
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
   };
 
   const handleInsert = (event) => {
-    console.log("handleInsert")
     if (event.key === 'Enter') {
       event.preventDefault();
 
@@ -86,38 +127,45 @@ export default function WritePost() {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = new FormData(event.target);
 
-    const resChip = chipData.map((value, index) => value.label)
+    const tags = chipData.map((value, index) => value.label)
 
-    data.append("chipData", resChip);
+    data.append("tags", tags);
     data.append("content", content);
 
     const response = await Axios.post(
       '/post',
       data
     ).catch(error => {
-      console.log(error);
+      setMessage("저장 실패!");
+      handleClickOpen();
     });
 
     if(response === undefined){
       return;
     }
-    
+
     if(response.status === 200){
+      history.push("/");
     }
 
   }
+
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Warning open={open} onClose={handleClose} message={message} />
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method="post">
         
         <Grid container spacing={1}>
 

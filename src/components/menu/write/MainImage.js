@@ -61,6 +61,7 @@ export default function MainImage(props) {
   const [isLoading, setLoading] = React.useState(false);
   const [originalName, setOriginalName] = React.useState("");
   const [saveName, setSaveName] = React.useState("");
+  const [savePath, setSavePath] = React.useState("");
 
   const inputEl = React.createRef();
 
@@ -93,6 +94,7 @@ export default function MainImage(props) {
       setLoading(false);
       setDefault(false);
       setSaveName(saveFileName);
+      setSavePath(savePath);
       setOriginalName(originalFileName);
       setImageSrc(url + savePath + saveFileName);
     }
@@ -106,6 +108,7 @@ export default function MainImage(props) {
     setDefault(true);
     setImageSrc("/");
     setSaveName("");
+    setSavePath("");
     setOriginalName("");
   }
 
@@ -142,6 +145,8 @@ export default function MainImage(props) {
       <input type="file" ref={inputEl} className={classes.none} onChange={submit} accept="image/*" />
       <input type="hidden" name="mainimageOriginalName" value={originalName}/>
       <input type="hidden" name="mainimageSaveName" value={saveName}/>
+      <input type="hidden" name="mainimageSavePath" value={savePath}/>
+
       {
        isDefault?
         <div

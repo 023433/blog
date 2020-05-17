@@ -38,6 +38,7 @@ export default function Main() {
     console.log("signout");
     Cookies.remove(Cookie.STR_TOKEN);
     history.push("/");
+    window.location.reload()
   }
   return (
     <Container maxWidth="lg" className={classes.container}>

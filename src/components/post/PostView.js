@@ -132,7 +132,7 @@ export default function PostView() {
 
       <CardContent>
         <CardMedia className={classes.coverMedia}>
-          <Image url={content.mainImage} />
+          <Image url={content.savePath + content.mainImage} />
         </CardMedia>
       </CardContent>
 
