@@ -92,7 +92,31 @@ export default function Category(props) {
     return (<Backdrop/>)
   }
   
+
+    
+  let res = [];
+
+  const initCategory = (data) =>{
+    
+    if(data === null){
+      return data;
+    }
+
+    data.map((category) => {
+      res.push({"no": category.no, "title": category.title});
+
+      if(category.children !== null){
+        initCategory(category.children);
+      }
+      return null;
+    });
+
+    return res;
+  }
+
   const category = initCategory(data);
+
+
 
   return (
     <React.Fragment>
@@ -132,25 +156,4 @@ export default function Category(props) {
         name="category" />
     </React.Fragment>
   )
-}
-
-let res = [];
-
-const initCategory = (data) =>{
-  res = [];
-  
-  if(data === null){
-    return data;
-  }
-
-  data.map((category) => {
-    res.push({"no": category.no, "title": category.title});
-
-    if(category.children !== null){
-      initCategory(category.children);
-    }
-    return null;
-  });
-
-  return res;
 }
