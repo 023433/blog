@@ -3,7 +3,6 @@ import LogoMedium from '../logo/medium'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export default function Images(props) {
-  const maxHeight = props.maxHeight? props.maxHeight : "300px";
   const useStyles = makeStyles(theme => ({
       logoFirst: {
         fill: theme.palette.logo.first.fill
@@ -12,8 +11,8 @@ export default function Images(props) {
         fill: theme.palette.logo.second.fill
       },
       imgLogo: {
-        width: maxHeight,
-        height: maxHeight
+        width: "150px",
+        height: "150px"
       },
       img: {
         maxWidth: "100%",
@@ -65,7 +64,15 @@ export default function Images(props) {
   let image;
 
   if(imgExists){
-    image = <img className={classes.img} src={url} alt=""/>;
+    image = <div
+              style={{
+                width: "100%",
+                paddingTop: '56.25%', // 16:9
+                backgroundSize: "contain",
+                backgroundImage: `url(' ${url} ')`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center"}}/> ;
+
   }else{
     image = <div className={classes.card}>
                 <div className={classes.imgLogo}>

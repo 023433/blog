@@ -134,7 +134,7 @@ export default function PostItem(props) {
                 <CardContent className={classes.cover}>
 
                   <CardMedia className={classes.coverMedia}>
-                    <Image url={summary.savePath + summary.thumbnail} maxHeight="150px" />
+                    <Image url={summary.savePath + summary.thumbnail} />
                   </CardMedia>
                 </CardContent>
                 
