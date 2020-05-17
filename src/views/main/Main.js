@@ -30,9 +30,8 @@ const useStyles = makeStyles(theme => ({
   })
 );
 
-export default function Main(props) {
+export default function Main() {
   const classes = useStyles();
-  const category = props.category;
   const history = useHistory();
 
   const signout = () => {
@@ -62,7 +61,7 @@ export default function Main(props) {
         </Grid>
 
         <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
-          <RightMenu category={category}/>
+          <RightMenu/>
         </Grid>
 
       </Grid>

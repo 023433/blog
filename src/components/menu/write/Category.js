@@ -12,6 +12,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
+import { ApiAsync, Axios, Backdrop } from '../../../service/ApiService';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -57,14 +58,41 @@ export default function Category(props) {
       return
     }
 
-    const isContains = no.some(val => val == value[idx].year);
+    const isContains = no.some(val => val === value[idx].no);
 
     if(isContains){
-      setNo((chips) => chips.filter((chip) => chip !== value[idx].year));
+      setNo((chips) => chips.filter((chip) => chip !== value[idx].no));
     }else{
-      setNo((chips) => chips.concat(value[idx].year));
+      setNo((chips) => chips.concat(value[idx].no));
     }
   }
+
+
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getCategory, []);
+  const { isLoading, data } = state;
+
+  async function getCategory() {
+    const response = await Axios.get(
+      '/categories',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+  
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+  
+  const category = initCategory(data);
 
   return (
     <React.Fragment>
@@ -75,10 +103,9 @@ export default function Category(props) {
           id="category"
           size="small"
           limitTags={2}
-          options={top100Films}
+          options={category}
           disableCloseOnSelect
           onChange={(event, value) => change(value)}
-          
           getOptionLabel={(option) => option.title}
           renderOption={(option, { selected }) => (
             <React.Fragment>
@@ -107,38 +134,22 @@ export default function Category(props) {
   )
 }
 
+let res = [];
 
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-  { title: 'The Good, the Bad and the Ugly', year: 1966 },
-  { title: 'Fight Club', year: 1999 },
-  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-  { title: 'Forrest Gump', year: 1994 },
-  { title: 'Inception', year: 2010 },
-  { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
-  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-  { title: 'Goodfellas', year: 1990 },
-  { title: 'The Matrix', year: 1999 },
-  { title: 'Seven Samurai', year: 1954 },
-  { title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
-  { title: 'City of God', year: 2002 },
-  { title: 'Se7en', year: 1995 },
-  { title: 'The Silence of the Lambs', year: 1991 },
-  { title: "It's a Wonderful Life", year: 1946 },
-  { title: 'Life Is Beautiful', year: 1997 },
-  { title: 'The Usual Suspects', year: 1995 },
-  { title: 'Léon: The Professional', year: 1994 },
-  { title: 'Spirited Away', year: 2001 },
-  { title: 'Saving Private Ryan', year: 1998 },
-  { title: 'Once Upon a Time in the West', year: 1968 },
-  { title: 'American History X', year: 1998 },
-  { title: 'Interstellar', year: 2014 },
-];
+const initCategory = (data) =>{
+
+  if(data === null){
+    return data;
+  }
+
+  data.map((category) => {
+    res.push({"no": category.no, "title": category.title});
+
+    if(category.children !== null){
+      initCategory(category.children);
+    }
+    return null;
+  });
+
+  return res;
+}

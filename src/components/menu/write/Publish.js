@@ -32,6 +32,9 @@ export default function Publish(props) {
   const [alignment, setAlignment] = React.useState('true');
 
   const handleAlignment = (event, newAlignment) => {
+    if(newAlignment === null){
+      return;
+    }
     setAlignment(newAlignment);
   };
 
@@ -45,7 +48,6 @@ export default function Publish(props) {
           value={alignment}
           exclusive
           onChange={handleAlignment}
-          aria-label="text alignment"
           className={classes.toggle}
         >
           <ToggleButton className={classes.toggle} value="true" aria-label="공개">
@@ -55,6 +57,10 @@ export default function Publish(props) {
             비공개
           </ToggleButton>
         </ToggleButtonGroup>
+        <input
+          type="hidden" 
+          value={alignment}
+          name="publish" />
       </Paper>
       
     </React.Fragment>

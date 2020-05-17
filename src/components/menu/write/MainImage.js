@@ -1,5 +1,6 @@
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import PanoramaOutlinedIcon from '@material-ui/icons/PanoramaOutlined';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
@@ -9,6 +10,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import LogoMedium from '../../svg/logo/medium'
+import { Axios, Backdrop } from '../../../service/ApiService';
 
 export default function MainImage(props) {
 
@@ -46,23 +49,73 @@ export default function MainImage(props) {
         alignSelf: "normal",
         marginTop: 0,
       }
+    },
+    none: {
+      display: "none"
     }
   }));
 
   const classes = useStyles();
-
   const [imageSrc, setImageSrc] = React.useState("/");
+  const [isDefault, setDefault] = React.useState(true);
+  const [isLoading, setLoading] = React.useState(false);
+  const [originalName, setOriginalName] = React.useState("");
+  const [saveName, setSaveName] = React.useState("");
 
-  const submit = async () => {
+  const inputEl = React.createRef();
 
+  const submit = async (event) => {
+    setLoading(true);
+    const target = event.target;
+
+    const data = new FormData();
+    data.append("attachImage", target.files[0]);
+
+    const response = await Axios.post(
+      '/attach/mainimage',
+      data
+    ).catch(error => {
+      console.log(error);
+    });
+    
+    if(response === undefined){
+      setLoading(false);
+      return;
+    }
+
+    if(response.status === 200){
+      const res = response.data;
+      const savePath = res.savePath;
+      const originalFileName = res.originalFileName;
+      const saveFileName = res.saveFileName;
+      const url = res.url;
+
+      setLoading(false);
+      setDefault(false);
+      setSaveName(saveFileName);
+      setOriginalName(originalFileName);
+      setImageSrc(url + savePath + saveFileName);
+    }
+  }
+  
+  const attach = () => {
+    inputEl.current.click();
   }
 
-  const remove = async () => {
-    setImageSrc("");
+  const remove = () => {
+    setDefault(true);
+    setImageSrc("/");
+    setSaveName("");
+    setOriginalName("");
   }
+
+  const logo = encodeURIComponent(renderToStaticMarkup(<LogoMedium/>));
 
   return (
     <React.Fragment>
+      {
+        isLoading? <Backdrop/> : null
+      }
       <CardHeader 
         className={classes.cardHeader}
         avatar={
@@ -80,17 +133,30 @@ export default function MainImage(props) {
             <IconButton className={classes.iconAction} onClick={remove}>
               <RemoveOutlinedIcon variant="contained" />
             </IconButton>
-            <IconButton className={classes.iconAction} onClick={submit}>
+            <IconButton className={classes.iconAction} onClick={attach}>
               <AddOutlinedIcon variant="contained" />
             </IconButton>
           </React.Fragment>
         }/>
       
-      <CardMedia
-        className={classes.media}
-        image={imageSrc}
-        title="Paella dish"
-      />
+      <input type="file" ref={inputEl} className={classes.none} onChange={submit} accept="image/*" />
+      <input type="hidden" name="mainimageOriginalName" value={originalName}/>
+      <input type="hidden" name="mainimageSaveName" value={saveName}/>
+      {
+       isDefault?
+        <div
+          style={{
+            paddingTop: '56.25%', // 16:9
+            opacity: "20%",
+            backgroundImage: `url('data:image/svg+xml;utf8, ${logo} ')`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center"}}/> 
+        :
+        <CardMedia
+          className={classes.media}
+          image={imageSrc}
+          title="Thumbnail"/>
+      }
     </React.Fragment>
   )
 }

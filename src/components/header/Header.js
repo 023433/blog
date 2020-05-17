@@ -17,6 +17,7 @@ import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
 
 import LogoSamll from '../svg/logo/small'
+import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
 export default function Header(props) {
 
@@ -77,6 +78,30 @@ export default function Header(props) {
 
   const [theme, setTheme] = React.useState(saveTheme);
 
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getCategory, []);
+  const { isLoading, data } = state;
+
+  async function getCategory() {
+    const response = await Axios.get(
+      '/categories',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+  
+  if(isLoading){
+    return (<Backdrop/>)
+  }
+  
   return (
 
     <AppBar className={classes.appbar} position="fixed" color="primary">
@@ -101,8 +126,8 @@ export default function Header(props) {
 
               <Hidden smDown>
                 {
-                  props.category != null ?
-                    props.category.map(item => (
+                  data != null ?
+                    data.map(item => (
                       <DropDownMenu category={item} key={item.no}/>
                     ))
                     :

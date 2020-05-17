@@ -12,7 +12,7 @@ import Admin from './Admin';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 
-export default function RightMenu(props) {
+export default function RightMenu() {
 
   const useStyles = makeStyles(theme => ({
     card: {
@@ -26,7 +26,6 @@ export default function RightMenu(props) {
   }));
 
   const classes = useStyles();
-  const category = props.category;
   return (
     <Grid item className={classes.grid}>
       <Card elevation={0} className={classes.card}>
@@ -38,7 +37,7 @@ export default function RightMenu(props) {
       </Card>
 
       <Card elevation={0} className={classes.card}>
-        <Category category={category}/>
+        <Category/>
       </Card>
 
       <Card elevation={0} className={classes.card}>
