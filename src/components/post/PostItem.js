@@ -156,8 +156,8 @@ export default function PostItem(props) {
                     </Paper>
                     
                     <Paper elevation={0}>
-                      <Typography variant="body2" component="h2" className={classes.description}>
-                        {summary.summary}
+                      <Typography variant="body2" component="h2" className={classes.description} >
+                        <div dangerouslySetInnerHTML={{ __html: summary.summary }}></div>
                       </Typography>
                     </Paper>
                     

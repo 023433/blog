@@ -138,7 +138,7 @@ export default function PostView() {
 
       <CardContent>             
         <Typography variant="body2" component="h2" className={classes.description}>
-          {content.content}
+          <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
         </Typography>
       </CardContent>
 
