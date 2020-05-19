@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 
 import Category from './Category';
 import Thumbnail from './Thumbnail';
-import MainImage from './MainImage';
 import Publish from './Publish';
 import Save from './Save';
 
@@ -35,9 +34,6 @@ export default function WriteMenu(props) {
       </Card>
       <Card elevation={0} className={classes.card}>
         <Thumbnail/>
-      </Card>
-      <Card elevation={0} className={classes.card}>
-        <MainImage/>
       </Card>
       <Card elevation={0} className={classes.card}>
         <Publish/>

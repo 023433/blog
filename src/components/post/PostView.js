@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
@@ -17,7 +16,6 @@ import PostViewReply from './PostViewReply';
 
 import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 
-import Image from '../svg/image/Image'
 import Timestamp from '../../components/date/Timestamp';
 
 import CKEditor from '../../components/editor/CKEditor';
@@ -131,12 +129,6 @@ export default function PostView() {
             <Timestamp dateTime={post.createDate} />
           </Typography>
         </Paper>
-      </CardContent>
-
-      <CardContent>
-        <CardMedia className={classes.coverMedia}>
-          <Image url={content.savePath + content.mainImage} />
-        </CardMedia>
       </CardContent>
 
       <CardContent>             
