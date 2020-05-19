@@ -12,7 +12,16 @@ import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 
 import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+
+import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
+import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
+import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
+import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
+import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
+import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
+import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 
 import Chip from '@material-ui/core/Chip';
 import WriteMenu from '../../components/menu/write/WriteMenu';
@@ -23,6 +32,26 @@ import './WritePost.css';
 
 export default function WritePost() {
 
+const builtinPlugins = [
+  EssentialsPlugin,
+  AutoformatPlugin,
+  BoldPlugin,
+  ItalicPlugin,
+  HeadingPlugin,
+  LinkPlugin,
+  ListPlugin,
+  ParagraphPlugin
+];
+
+const defaultConfig = {
+  toolbar: [ 'heading', '|', 'bold', 'italic' ],
+  language: 'en'
+};
+
+const editorConfiguration  = {
+  plugins: builtinPlugins,
+  toolbar: defaultConfig
+}
   const useStyles = makeStyles(theme => ({
     container: {
       paddingLeft: 0,
@@ -184,7 +213,8 @@ export default function WritePost() {
               </Paper>
 
               <CKEditor 
-                editor={ ClassicEditor }
+                editor={ ClassicEditorBase }
+                config={ editorConfiguration }
                 onChange={ ( event, editor ) => {
                   setContent(editor.getData());
                 } } />
