@@ -23,6 +23,10 @@ import Paper from '@material-ui/core/Paper';
 
 import Brightness2RoundedIcon from '@material-ui/icons/Brightness2Rounded';
 import WbSunnyRoundedIcon from '@material-ui/icons/WbSunnyRounded';
+
+import { ApiAsync, Axios } from '../../service/ApiService';
+
+
 export default function DrawerMenu(props) {
 
   const useStyles = makeStyles(theme => ({
@@ -67,7 +71,7 @@ export default function DrawerMenu(props) {
 
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
+  const [drawer, setDrawers] = React.useState({
     top: false,
     left: false,
     bottom: false,
@@ -78,7 +82,7 @@ export default function DrawerMenu(props) {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setState({ ...state, [side]: open });
+    setDrawers({ ...drawer, [side]: open });
   };
 
   let saveTheme = props.currentTheme;
@@ -88,9 +92,28 @@ export default function DrawerMenu(props) {
   }
 
   const [theme, setTheme] = React.useState(saveTheme);
-  const category = props.category;
 
-  
+  // eslint-disable-next-line
+  const [state, dispatch] = ApiAsync(getCategory, []);
+  // eslint-disable-next-line
+  const { isLoading, data } = state;
+
+  async function getCategory() {
+    const response = await Axios.get(
+      '/categories/count',
+    ).catch(error => {
+      console.log(error);
+    });
+
+    if(response === undefined){
+      return;
+    }
+
+    if(response.status === 200){
+      return response;
+    }
+  }
+
   return (
     <React.Fragment>
       <IconButton
@@ -103,7 +126,7 @@ export default function DrawerMenu(props) {
       </IconButton>
       <Drawer 
         anchor="right" 
-        open={state.right} 
+        open={drawer.right} 
         onClose={toggleDrawer('right', false)}>
 
       <Paper 
@@ -162,9 +185,9 @@ export default function DrawerMenu(props) {
       <CardContent content={
         <React.Fragment>
           {
-            category != null ?
-              category.map(item => (
-                <CategoryItem category={item} key={item.no}/>
+            data != null ?
+              data.map(category => (
+                <CategoryItem category={category} key={category.no}/>
               ))
               :
               null
