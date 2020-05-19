@@ -20,6 +20,9 @@ import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 import Image from '../svg/image/Image'
 import Timestamp from '../../components/date/Timestamp';
 
+import CKEditor from '../../components/editor/CKEditor';
+import { EditType } from '../editor/enum/EditType';
+
 export default function PostView() {
   let { id } = useParams();
 
@@ -138,7 +141,7 @@ export default function PostView() {
 
       <CardContent>             
         <Typography variant="body2" component="h2" className={classes.description}>
-          <div dangerouslySetInnerHTML={{ __html: content.content }}></div>
+          <CKEditor data={content.content} type={EditType.Read}/>
         </Typography>
       </CardContent>
 

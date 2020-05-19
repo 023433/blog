@@ -11,47 +11,18 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-
-import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
-import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
-import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
-import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
-import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
-import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
-import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
-
 import Chip from '@material-ui/core/Chip';
 import WriteMenu from '../../components/menu/write/WriteMenu';
 import { ApiAsync, Axios, Backdrop } from '../../service/ApiService';
 import Alert from '../../components/alert/Alert';
+import Typography from '@material-ui/core/Typography';
 
-import './WritePost.css';
+import CKEditor from '../../components/editor/CKEditor';
+import { EditType } from '../../components/editor/enum/EditType';
 
 export default function WritePost() {
 
-const builtinPlugins = [
-  EssentialsPlugin,
-  AutoformatPlugin,
-  BoldPlugin,
-  ItalicPlugin,
-  HeadingPlugin,
-  LinkPlugin,
-  ListPlugin,
-  ParagraphPlugin
-];
 
-const defaultConfig = {
-  toolbar: [ 'heading', '|', 'bold', 'italic' ],
-  language: 'en'
-};
-
-const editorConfiguration  = {
-  plugins: builtinPlugins,
-  toolbar: defaultConfig
-}
   const useStyles = makeStyles(theme => ({
     container: {
       paddingLeft: 0,
@@ -80,6 +51,14 @@ const editorConfiguration  = {
       margin: theme.spacing(0.5),
       color: theme.palette.secondary.textColor
     },
+    count: {
+      display: "flex",
+      justifyContent: "flex-end",
+      color: theme.palette.secondary.textColor,
+      alignSelf: "flex-end",
+      paddingRight: "8px",
+      fontSize: "15px"
+    },
   }));
 
   // eslint-disable-next-line
@@ -90,6 +69,7 @@ const editorConfiguration  = {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [content, setContent] = React.useState("");
+  const [charCount, setCharCount] = React.useState(0);
 
 
   // eslint-disable-next-line
@@ -213,11 +193,15 @@ const editorConfiguration  = {
               </Paper>
 
               <CKEditor 
-                editor={ ClassicEditorBase }
-                config={ editorConfiguration }
-                onChange={ ( event, editor ) => {
-                  setContent(editor.getData());
-                } } />
+                type={EditType.Write}
+                content={setContent}
+                charCount={setCharCount}/>
+
+              <Paper elevation={0} className={classes.subtitle}>
+                <Typography variant="caption"  className={classes.count}>
+                  Characters : {charCount}
+                </Typography>
+              </Paper>
 
               <Divider/>
 
