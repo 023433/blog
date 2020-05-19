@@ -224,15 +224,15 @@ export default function CKEditorComponent(props) {
 
 
   return (
-    <CKEditor         
-      data={data}
-      onInit={ (editor) => {
-        editor.isReadOnly = isReadOnly();
-      }}
-      editor={ClassicEditorBase}
-      config={editorConfiguration}
-      onChange={ ( event, editor ) => {
-        setContent(editor.getData());
-      }} />
+      <CKEditor         
+        data={data}
+        onInit={ (editor) => {
+          editor.isReadOnly = isReadOnly();
+        }}
+        editor={ClassicEditorBase}
+        config={editorConfiguration}
+        onChange={ ( event, editor ) => {
+          setContent(editor.getData());
+        }} />
   );
 }

@@ -15,3 +15,7 @@
     border: transparent !important;
     box-shadow: none !important;
 }
+
+.ck.ck-editor__main>.ck-editor__editable {
+    background-color: transparent !important;
+}
