@@ -4,7 +4,11 @@ import Typography from '@material-ui/core/Typography';
 export default function Timestamp(props) {
 
   const date = props.dateTime;
-  const createDate = new Date(date);
+  let createDate = new Date(date);
+
+  if(navigator.platform.indexOf('Mac') > -1){
+    createDate = new Date(date + "+09:00");
+  }
 
   function getResultDate(createDate){
 
