@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Header from '../components/header/Header'
 import MainContent from './main/Main';
@@ -211,7 +213,7 @@ export default function Main() {
       <Router>
         <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
           <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
-          
+          <ScrollToTop />
           <Switch>
             <Route exact path="/signin"><Signin/></Route>
             <Route path="/write"><WritePost/></Route>
@@ -223,3 +225,19 @@ export default function Main() {
     </ThemeProvider>
   );
 };
+
+
+const ScrollToTop = withRouter(
+  ({ history }) => {
+    useEffect(() => {
+      const unlisten = history.listen(() => {
+        window.scrollTo(0, 0);
+      });
+      return () => {
+        unlisten();
+      }
+    });
+  
+    return (null);
+  }
+);
