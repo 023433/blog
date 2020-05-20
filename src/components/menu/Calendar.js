@@ -137,7 +137,12 @@ export default function MenuCalendar() {
   }
 
   data.map(value => {
-    const createDate = new Date(value.createDate);
+    
+    let createDate = new Date(value.createDate);
+
+    if(navigator.platform.indexOf('Mac') > -1){
+      createDate = new Date(value.createDate + "+09:00");
+    }
     
     writeDate.push(createDate.getDate());
     return null;
