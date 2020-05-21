@@ -7,6 +7,7 @@ if(process.env.NODE_ENV === "production"){
     apiUrl = "https://api.devj.io";
 }else{
     apiUrl = "http://localhost:8080";
+    // apiUrl = "http://192.168.0.154:8080";
 }
 
 const instance = Axios.create({
