@@ -143,6 +143,10 @@ export default function MenuCalendar() {
     if(navigator.platform.indexOf('Mac') > -1){
       createDate = new Date(value.createDate + "+09:00");
     }
+
+    if(navigator.platform.indexOf('iPhone') > -1){
+      createDate = new Date(value.createDate + "+09:00");
+    }
     
     writeDate.push(createDate.getDate());
     return null;
