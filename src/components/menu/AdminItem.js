@@ -38,12 +38,20 @@ export default function CategoryItem(props) {
     }
   }));
 
+  const isSubdomain = props.isSubdomain;
+
+  let component = {component: Link, to: props.link};
+
+  if(isSubdomain){
+    component = {component: "a", href: props.link};
+  }
+
   const classes = useStyles();
   
   return (
     <List component="nav" className={classes.list}>
 
-      <ListItem button className={classes.listItem} {...{ component: Link, to: props.link }}>
+      <ListItem button className={classes.listItem} {...component}>
         <ListItemIcon className={classes.listItemIcon}>
           <AttachmentIcon className={classes.icon} /> 
         </ListItemIcon>
