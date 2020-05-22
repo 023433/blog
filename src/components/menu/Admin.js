@@ -16,13 +16,15 @@ export default function Admin() {
     isLogin = true;
   }
 
+  const hostname = window.location.hostname;
+  
   return (
     <React.Fragment>
       <CardHeader title="관리" icon={ <BuildRoundedIcon/>}/>
       <CardContent content={
         <React.Fragment>
           <AdminItem name={isLogin? "로그아웃":"로그인"} link={isLogin? "/signout":"/signin"} />
-          <AdminItem name="관리자" link="/admin" />
+          <AdminItem name="관리자" link={`//admin.${hostname}`} />
           <AdminItem name="글쓰기" link="/write" />
         </React.Fragment>
       }/>
