@@ -43,7 +43,7 @@ export default function DropDownMenu(props) {
       paddingLeft: theme.spacing(1),
     },
     list: {
-      padding: "0px 4px 0px 2px"
+      padding: "0px 4px 0px 6px"
     },
     firstItem: {
       padding: "0px 4px 0px 5px"
