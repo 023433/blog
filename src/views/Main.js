@@ -9,6 +9,17 @@ import Header from '../components/header/Header'
 import MainContent from './main/Main';
 import Signin from './main/Signin';
 import WritePost from './main/WritePost';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
+
+ReactGA.initialize('UA-168559240-1');
+
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 export default function Main() {
 
@@ -210,7 +221,7 @@ export default function Main() {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <Router>
+      <Router history={history}>
         <div style={{minHeight: "100vh", background: (theme === 'light' ? lightTheme.bgColor : darkTheme.bgColor)}}>
           <Header toggleTheme={toggleTheme} currentTheme={saveTheme} />
           <ScrollToTop />
